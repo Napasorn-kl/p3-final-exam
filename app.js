@@ -622,19 +622,41 @@
     var answered = state.answers[i];
     var dm = DIFF_META[item.difficulty];
 
+    var revealed = answered !== null;   // once tapped, the answer is locked and revealed
+    var isLast = i === total - 1;
+    var correct = revealed && answered === item.correct;
+
     var choices = item.choices.map(function (c, ci) {
-      var sel = answered === ci ? " selected" : "";
+      var cls = "choice big" + (item.type === "tf" ? " tf" : "");
+      var mark = "";
+      if (revealed) {
+        cls += " locked";
+        if (ci === item.correct) { cls += " correct"; mark = '<span class="ch-mark">✓</span>'; }
+        else if (ci === answered) { cls += " wrong"; mark = '<span class="ch-mark">✗</span>'; }
+      }
       var letter = item.type === "tf" ? (ci === 0 ? "✓" : "✕") : String.fromCharCode(65 + ci);
       return (
-        '<button class="choice' + sel + (item.type === "tf" ? " tf" : "") + '" data-choose="' + ci + '">' +
+        '<button class="' + cls + '" data-choose="' + ci + '">' +
           '<span class="ch-letter">' + letter + "</span>" +
-          '<span class="ch-text">' + esc(c) + "</span>" +
+          '<span class="ch-text">' + esc(c) + "</span>" + mark +
         "</button>"
       );
     }).join("");
 
-    var isLast = i === total - 1;
-    var answeredCount = state.answers.filter(function (a) { return a !== null; }).length;
+    var feedback = "";
+    if (revealed) {
+      feedback = correct
+        ? '<div class="fb ok"><span class="fb-big">🎉</span>เก่งมาก! ตอบถูกต้อง</div>'
+        : '<div class="fb no"><span class="fb-big">💪</span>ไม่เป็นไรน้า ครั้งหน้าต้องได้!<br><span class="fb-sub">เฉลยคือข้อสีเขียว 👇</span></div>';
+      feedback += '<div class="q-explain">💡 ' + esc(item.explanation) + "</div>";
+    }
+
+    var backBtn = i > 0 ? '<button class="btn btn-soft" data-exam="prev">◂ ย้อนกลับ</button>' : '<span class="nav-sp"></span>';
+    var navRight = !revealed
+      ? '<div class="hint">👆 แตะเลือกคำตอบเลยจ้า</div>'
+      : (isLast
+          ? '<button class="btn btn-primary" data-exam="submit">ดูคะแนน 🎯</button>'
+          : '<button class="btn btn-primary" data-exam="next">ข้อถัดไป ▸</button>');
 
     root.innerHTML =
       '<div class="exam-top" style="--subject:' + s.color + '">' +
@@ -647,14 +669,9 @@
         '<div class="q-tags"><span class="q-topic">' + esc(SUBJECTS[key].topics[item.topic] || item.topic) + '</span><span class="q-diff" title="' + dm.label + '">' + dm.stars + "</span></div>" +
         '<div class="q-text">' + esc(item.question) + "</div>" +
         '<div class="choices">' + choices + "</div>" +
+        feedback +
       "</div>" +
-      '<div class="exam-nav">' +
-        (i > 0 ? '<button class="btn btn-soft" data-exam="prev">◂ ย้อนกลับ</button>' : '<span></span>') +
-        (isLast
-          ? '<button class="btn btn-primary" data-exam="submit">ส่งคำตอบ ✅</button>'
-          : '<button class="btn btn-primary" data-exam="next">ข้อถัดไป ▸</button>') +
-      "</div>" +
-      '<div class="exam-foot">ตอบแล้ว ' + answeredCount + " / " + total + " ข้อ · เปลี่ยนคำตอบได้ก่อนส่ง</div>";
+      '<div class="exam-nav">' + backBtn + navRight + "</div>";
   }
 
   function submitExam() {
@@ -843,20 +860,13 @@
       return;
     }
 
-    // choose an answer
+    // choose an answer — locks and reveals immediately (immediate feedback)
     if (t.hasAttribute("data-choose")) {
-      var ci = parseInt(t.getAttribute("data-choose"), 10);
-      state.answers[state.index] = ci;
-      // update selection without full re-render for snappiness
-      var box = t.parentNode;
-      Array.prototype.forEach.call(box.querySelectorAll(".choice"), function (c) { c.classList.remove("selected"); });
-      t.classList.add("selected");
-      // reflect answered-count line
-      var foot = document.querySelector(".exam-foot");
-      if (foot) {
-        var answeredCount = state.answers.filter(function (a) { return a !== null; }).length;
-        foot.textContent = "ตอบแล้ว " + answeredCount + " / " + state.exam.length + " ข้อ · เปลี่ยนคำตอบได้ก่อนส่ง";
-      }
+      if (state.answers[state.index] !== null) return;   // already answered/locked
+      state.answers[state.index] = parseInt(t.getAttribute("data-choose"), 10);
+      render();
+      var fb = document.querySelector(".fb");
+      if (fb && fb.scrollIntoView) fb.scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
 
