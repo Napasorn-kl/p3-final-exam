@@ -1,0 +1,1211 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>สนามสอบ ป.3</title>
+<meta name="description" content="เว็บจำลองข้อสอบ Final ป.3 — วิทยาศาสตร์ สังคม ประวัติศาสตร์ อังกฤษ ทบทวน ทำข้อสอบ ดูเฉลย และทำใหม่ได้ไม่จำกัด">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Thai+2:wght@500;600;700;800&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EAF1FB; --bg2:#FFFFFF; --card:#FFFFFF;
+  --ink:#26314E; --muted:#6B7690; --line:#E3E9F5;
+  --primary:#4C6EF5; --primary-ink:#FFFFFF;
+  --sun:#FFC53D; --good:#2FBF71; --good-bg:#E7F8EF; --good-ink:#1B7A48;
+  --soft:#FF8A5C; --soft-bg:#FFF0E9; --soft-ink:#C55A2E;
+  --shadow:24px 24px 48px rgba(38,49,78,.08);
+  --shadow-sm:0 6px 18px rgba(38,49,78,.10);
+  --subject:#4C6EF5;
+  --r:22px; --r-sm:16px;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#10152A; --bg2:#1A2138; --card:#1E2743;
+    --ink:#EAEEF7; --muted:#9BA7C7; --line:#2E3A5D;
+    --primary:#7A93FF; --primary-ink:#0E1428;
+    --sun:#FFD666; --good:#45D390; --good-bg:rgba(69,211,144,.14); --good-ink:#7EE7B4;
+    --soft:#FF9F73; --soft-bg:rgba(255,138,92,.15); --soft-ink:#FFB795;
+    --shadow:24px 24px 48px rgba(0,0,0,.35);
+    --shadow-sm:0 6px 18px rgba(0,0,0,.32);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#10152A; --bg2:#1A2138; --card:#1E2743;
+  --ink:#EAEEF7; --muted:#9BA7C7; --line:#2E3A5D;
+  --primary:#7A93FF; --primary-ink:#0E1428;
+  --sun:#FFD666; --good:#45D390; --good-bg:rgba(69,211,144,.14); --good-ink:#7EE7B4;
+  --soft:#FF9F73; --soft-bg:rgba(255,138,92,.15); --soft-ink:#FFB795;
+  --shadow:24px 24px 48px rgba(0,0,0,.35);
+  --shadow-sm:0 6px 18px rgba(0,0,0,.32);
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"Sarabun",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:17px; line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  padding:env(safe-area-inset-top) 0 0;
+}
+h1,h2,h3,.display{font-family:"Baloo Thai 2","Sarabun",sans-serif;font-weight:800;line-height:1.2}
+#app{max-width:660px;margin:0 auto;padding:18px 16px 64px}
+
+/* ---------- buttons ---------- */
+.btn{
+  font-family:"Baloo Thai 2","Sarabun",sans-serif;font-weight:700;font-size:17px;
+  border:none;border-radius:var(--r-sm);padding:14px 18px;cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  transition:transform .08s ease, box-shadow .15s ease, background .15s ease;
+  color:var(--ink);background:var(--bg2);
+}
+.btn:active{transform:translateY(2px) scale(.99)}
+.btn:focus-visible{outline:3px solid var(--primary);outline-offset:2px}
+.btn-primary{background:var(--primary);color:var(--primary-ink);box-shadow:0 5px 0 rgba(0,0,0,.10)}
+.btn-primary:active{box-shadow:0 1px 0 rgba(0,0,0,.10)}
+.btn-soft{background:var(--card);color:var(--ink);border:2px solid var(--line);box-shadow:var(--shadow-sm)}
+.btn.big{font-size:19px;padding:17px 22px}
+.btn.full{width:100%}
+.btn[disabled]{opacity:.45;cursor:default;box-shadow:none}
+
+/* ---------- home ---------- */
+.home-hero{text-align:center;padding:14px 8px 6px}
+.hero-badge{display:inline-block;background:var(--sun);color:#5b4300;font-family:"Baloo Thai 2";font-weight:700;
+  font-size:14px;padding:5px 14px;border-radius:999px;letter-spacing:.3px}
+.hero-title{font-size:clamp(34px,9vw,46px);margin:10px 0 6px;color:var(--ink);text-wrap:balance}
+.hero-sub{color:var(--muted);margin:0 auto;max-width:34ch;font-weight:500}
+
+.section-title{font-size:20px;margin:26px 4px 12px}
+
+.panel{background:var(--card);border:2px solid var(--line);border-radius:var(--r);padding:16px;margin:16px 0;box-shadow:var(--shadow-sm)}
+.panel-head{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+.ph-emoji{font-size:26px;flex:none}
+.panel-title{font-family:"Baloo Thai 2";font-weight:700;font-size:18px}
+.panel-desc{color:var(--muted);font-size:14px;font-weight:500}
+
+.chip-row{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:"Baloo Thai 2";font-weight:600;font-size:15px;border:2px solid var(--line);background:var(--bg2);
+  color:var(--ink);border-radius:999px;padding:8px 14px;cursor:pointer;transition:transform .08s}
+.chip:active{transform:scale(.96)}
+.chip:hover{border-color:var(--subject)}
+.chip:focus-visible{outline:3px solid var(--subject);outline-offset:2px}
+
+/* subject cards */
+.subject-grid{display:grid;grid-template-columns:1fr;gap:12px}
+@media(min-width:520px){.subject-grid{grid-template-columns:1fr 1fr}}
+.subject-card{
+  text-align:left;border:2px solid var(--line);background:var(--card);border-radius:var(--r);
+  padding:16px;display:flex;flex-direction:column;gap:8px;cursor:pointer;position:relative;overflow:hidden;
+  box-shadow:var(--shadow-sm);transition:transform .1s ease, box-shadow .15s ease, border-color .15s;
+  border-top:7px solid var(--subject);
+}
+.subject-card:hover{transform:translateY(-3px);box-shadow:0 12px 26px rgba(38,49,78,.14);border-color:var(--subject)}
+.subject-card:active{transform:translateY(0)}
+.subject-card:focus-visible{outline:3px solid var(--subject);outline-offset:2px}
+.sc-emoji{font-size:38px;line-height:1}
+.sc-name{font-family:"Baloo Thai 2";font-weight:800;font-size:22px}
+.sc-meta{color:var(--muted);font-size:14px;font-weight:500}
+.mini-last{font-size:13px;font-weight:600;color:var(--subject);background:color-mix(in srgb,var(--subject) 12%,transparent);
+  display:inline-block;padding:3px 10px;border-radius:999px;margin-top:2px}
+.mini-last.muted{color:var(--muted);background:var(--bg)}
+.sc-go{margin-top:4px;font-family:"Baloo Thai 2";font-weight:700;color:var(--subject);font-size:15px}
+
+/* recent */
+.recent-row{display:flex;align-items:center;gap:12px;padding:10px 4px;border-top:1px solid var(--line)}
+.recent-row:first-of-type{border-top:none}
+.rr-emoji{font-size:24px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;
+  background:color-mix(in srgb,var(--subject) 14%,transparent);border-radius:14px;flex:none}
+.rr-main{flex:1;min-width:0}
+.rr-name{font-family:"Baloo Thai 2";font-weight:700;font-size:16px}
+.rr-date{color:var(--muted);font-size:12.5px}
+.rr-score{text-align:right;font-family:"Baloo Thai 2"}
+.rr-score b{font-size:18px}
+.rr-score span{display:block;font-size:12.5px;color:var(--muted)}
+
+.foot{text-align:center;color:var(--muted);font-size:13px;margin-top:28px;font-weight:500}
+
+/* ---------- topbar / subject page ---------- */
+.topbar{margin:2px 0 10px}
+.back-btn{font-family:"Baloo Thai 2";font-weight:700;font-size:15px;background:var(--card);border:2px solid var(--line);
+  color:var(--ink);border-radius:999px;padding:8px 16px;cursor:pointer;box-shadow:var(--shadow-sm)}
+.back-btn:active{transform:scale(.97)}
+.back-btn:focus-visible{outline:3px solid var(--primary);outline-offset:2px}
+
+.subj-hero{display:flex;align-items:center;gap:14px;background:var(--card);border:2px solid var(--line);
+  border-left:9px solid var(--subject);border-radius:var(--r);padding:16px 18px;box-shadow:var(--shadow-sm)}
+.subj-hero.small{padding:14px 16px}
+.subj-emoji{font-size:40px;flex:none}
+.subj-title{font-size:26px;margin:0}
+.subj-topics{color:var(--muted);font-size:13.5px;font-weight:500;margin-top:2px}
+
+.last-pill{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:color-mix(in srgb,var(--subject) 10%,transparent);
+  border-radius:14px;padding:10px 14px;margin:12px 0;font-size:14px}
+.last-pill span{color:var(--muted);font-weight:600}
+.last-pill b{font-family:"Baloo Thai 2";font-size:16px;color:var(--subject)}
+.last-pill i{color:var(--muted);font-style:normal;margin-left:auto;font-size:12.5px}
+
+.two-btn{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+@media(max-width:420px){.two-btn{grid-template-columns:1fr}}
+
+.set-list{display:flex;flex-direction:column;gap:10px}
+.set-card{display:flex;align-items:center;gap:12px;background:var(--card);border:2px solid var(--line);
+  border-radius:var(--r);padding:14px 16px;box-shadow:var(--shadow-sm)}
+.set-info{flex:1}
+.set-label{font-family:"Baloo Thai 2";font-weight:800;font-size:19px}
+.set-desc{color:var(--muted);font-size:14px;font-weight:500}
+
+/* ---------- review cards ---------- */
+.rev-list{display:flex;flex-direction:column;gap:10px;margin:14px 0}
+.rev-card{background:var(--card);border:2px solid var(--line);border-radius:var(--r-sm);padding:14px 16px;box-shadow:var(--shadow-sm)}
+.rev-tag{display:inline-flex;align-items:center;gap:7px;font-family:"Baloo Thai 2";font-weight:700;font-size:15px;
+  background:var(--bg);border-radius:999px;padding:4px 12px;margin-bottom:8px}
+.rev-tag span{font-size:17px}
+.rev-text{font-weight:500;line-height:1.55}
+.sticky-cta{position:sticky;bottom:12px;margin-top:16px}
+.sticky-cta .btn{width:100%;box-shadow:0 5px 0 rgba(0,0,0,.10),0 12px 24px rgba(38,49,78,.18)}
+
+/* ---------- flash ---------- */
+.flash-card{background:var(--card);border:2px solid var(--line);border-top:8px solid var(--subject);border-radius:var(--r);
+  padding:28px 22px;text-align:center;box-shadow:var(--shadow);margin:16px 0;min-height:240px;
+  display:flex;flex-direction:column;justify-content:center;gap:12px;animation:pop .25s ease}
+@keyframes pop{from{transform:scale(.96);opacity:.4}to{transform:scale(1);opacity:1}}
+.flash-icon{font-size:52px}
+.flash-label{font-family:"Baloo Thai 2";font-weight:800;font-size:22px;color:var(--subject)}
+.flash-body{font-size:18px;font-weight:500;line-height:1.6;max-width:38ch;margin:0 auto}
+.flash-dots{display:flex;gap:7px;justify-content:center;margin:6px 0 2px}
+.flash-dots .dot{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.flash-dots .dot.on{background:var(--subject);transform:scale(1.25)}
+
+/* ---------- exam ---------- */
+.exam-top{background:var(--card);border:2px solid var(--line);border-radius:var(--r);padding:14px 16px;
+  box-shadow:var(--shadow-sm);position:relative}
+.exam-quit{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;border:2px solid var(--line);
+  background:var(--bg);color:var(--muted);font-size:16px;cursor:pointer;line-height:1}
+.exam-quit:active{transform:scale(.92)}
+.exam-meta{display:flex;justify-content:space-between;align-items:center;padding-right:38px;margin-bottom:10px}
+.exam-subj{font-family:"Baloo Thai 2";font-weight:700;font-size:16px}
+.exam-count{font-family:"Baloo Thai 2";font-weight:700;font-size:15px;color:var(--subject);
+  background:color-mix(in srgb,var(--subject) 13%,transparent);padding:3px 12px;border-radius:999px}
+.progress{height:14px;background:var(--bg);border-radius:999px;overflow:hidden;border:1px solid var(--line)}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--subject),color-mix(in srgb,var(--subject) 60%,var(--sun)));
+  border-radius:999px;transition:width .3s ease;min-width:2%}
+
+.q-card{background:var(--card);border:2px solid var(--line);border-radius:var(--r);padding:18px 18px 20px;
+  margin:14px 0;box-shadow:var(--shadow-sm)}
+.q-tags{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.q-topic{font-family:"Baloo Thai 2";font-weight:600;font-size:13px;color:var(--subject);
+  background:color-mix(in srgb,var(--subject) 12%,transparent);padding:3px 12px;border-radius:999px}
+.q-diff{font-size:13px;letter-spacing:1px}
+.q-text{font-family:"Baloo Thai 2";font-weight:700;font-size:21px;line-height:1.4;margin-bottom:16px;text-wrap:pretty}
+
+.choices{display:flex;flex-direction:column;gap:10px}
+.choice{display:flex;align-items:center;gap:12px;text-align:left;background:var(--bg2);border:2.5px solid var(--line);
+  border-radius:var(--r-sm);padding:14px;cursor:pointer;font-size:17px;font-weight:500;color:var(--ink);
+  transition:transform .07s, border-color .12s, background .12s;font-family:"Sarabun"}
+.choice:hover{border-color:var(--subject)}
+.choice:active{transform:scale(.99)}
+.choice:focus-visible{outline:3px solid var(--subject);outline-offset:2px}
+.ch-letter{flex:none;width:34px;height:34px;border-radius:50%;background:var(--bg);border:2px solid var(--line);
+  display:flex;align-items:center;justify-content:center;font-family:"Baloo Thai 2";font-weight:800;font-size:16px;color:var(--muted)}
+.choice.selected{border-color:var(--subject);background:color-mix(in srgb,var(--subject) 12%,transparent)}
+.choice.selected .ch-letter{background:var(--subject);color:#fff;border-color:var(--subject)}
+.choice.tf{font-family:"Baloo Thai 2";font-weight:700;font-size:19px}
+
+.exam-nav{display:flex;justify-content:space-between;gap:10px;margin-top:4px}
+.exam-nav .btn{flex:1;max-width:none}
+.exam-nav>span{flex:1}
+.exam-foot{text-align:center;color:var(--muted);font-size:13px;margin-top:12px;font-weight:500}
+
+/* ---------- result ---------- */
+.result-hero{border-radius:var(--r);padding:26px 20px;text-align:center;margin-bottom:8px;
+  border:2px solid var(--line);box-shadow:var(--shadow);animation:pop .3s ease}
+.lv-star{background:linear-gradient(160deg,#FFF6DC,#FFE9A8);color:#6b4e00;border-color:#FFDE86}
+.lv-good{background:linear-gradient(160deg,#E5F8EE,#C9F0DA);color:#155e38;border-color:#B9EACD}
+.lv-ok{background:linear-gradient(160deg,#EAF1FF,#D7E4FF);color:#2a3f75;border-color:#CBDBFF}
+.lv-try{background:linear-gradient(160deg,#FFF0E9,#FFE0D2);color:#8a3f1c;border-color:#FFD2BE}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .lv-star{background:linear-gradient(160deg,#3a3413,#2c2710);color:#FFE9A8;border-color:#5a4f1e}
+:root:not([data-theme="light"]) .lv-good{background:linear-gradient(160deg,#14311f,#102a1a);color:#9ff0c1;border-color:#245a3a}
+:root:not([data-theme="light"]) .lv-ok{background:linear-gradient(160deg,#1a2547,#151d38);color:#c3d4ff;border-color:#2f406e}
+:root:not([data-theme="light"]) .lv-try{background:linear-gradient(160deg,#3a251b,#2c1c14);color:#ffc4a8;border-color:#5c3826}}
+:root[data-theme="dark"] .lv-star{background:linear-gradient(160deg,#3a3413,#2c2710);color:#FFE9A8;border-color:#5a4f1e}
+:root[data-theme="dark"] .lv-good{background:linear-gradient(160deg,#14311f,#102a1a);color:#9ff0c1;border-color:#245a3a}
+:root[data-theme="dark"] .lv-ok{background:linear-gradient(160deg,#1a2547,#151d38);color:#c3d4ff;border-color:#2f406e}
+:root[data-theme="dark"] .lv-try{background:linear-gradient(160deg,#3a251b,#2c1c14);color:#ffc4a8;border-color:#5c3826}
+.rh-emoji{font-size:64px;line-height:1}
+.rh-title{font-family:"Baloo Thai 2";font-weight:800;font-size:26px;margin-top:6px}
+.rh-score{font-family:"Baloo Thai 2";margin-top:10px}
+.rh-score b{font-size:56px;line-height:1}
+.rh-score span{font-size:24px;opacity:.7;font-weight:700}
+.rh-pct{font-family:"Baloo Thai 2";font-weight:800;font-size:22px;margin-top:2px}
+.rh-msg{font-weight:600;margin-top:6px;opacity:.9}
+.rh-stat{display:flex;gap:10px;justify-content:center;margin-top:14px;flex-wrap:wrap}
+.rh-stat .st{font-family:"Baloo Thai 2";font-weight:700;font-size:14px;padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.55)}
+.rh-stat .st.no{background:rgba(255,255,255,.55)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .rh-stat .st{background:rgba(0,0,0,.25)}}
+:root[data-theme="dark"] .rh-stat .st{background:rgba(0,0,0,.25)}
+
+.wt-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.wt-chip{font-family:"Baloo Thai 2";font-weight:700;font-size:15px;border:2px solid var(--soft);background:var(--soft-bg);
+  color:var(--soft-ink);border-radius:999px;padding:8px 14px;cursor:pointer;transition:transform .08s}
+.wt-chip i{font-style:normal;opacity:.75;font-weight:600;font-size:13px}
+.wt-chip:active{transform:scale(.96)}
+
+.action-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}
+.action-grid .btn:first-child{grid-column:1/-1}
+@media(max-width:420px){.action-grid{grid-template-columns:1fr}}
+
+.ans-list{display:flex;flex-direction:column;gap:12px}
+.ans-card{background:var(--card);border:2px solid var(--line);border-radius:var(--r-sm);padding:15px 16px;box-shadow:var(--shadow-sm);border-left:7px solid var(--good)}
+.ans-card.no{border-left-color:var(--soft)}
+.ans-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.ans-no{font-family:"Baloo Thai 2";font-weight:800;font-size:15px;color:var(--muted)}
+.ans-badge{font-family:"Baloo Thai 2";font-weight:700;font-size:13px;padding:3px 10px;border-radius:999px;background:var(--good-bg);color:var(--good-ink)}
+.ans-card.no .ans-badge{background:var(--soft-bg);color:var(--soft-ink)}
+.ans-q{font-family:"Baloo Thai 2";font-weight:700;font-size:17px;line-height:1.4;margin-bottom:8px}
+.ans-line{font-size:15px;font-weight:500;margin:2px 0}
+.ans-line.correct b{color:var(--good-ink)}
+.ans-line.yours b{color:var(--soft-ink)}
+.ans-explain{margin-top:8px;background:var(--bg);border-radius:12px;padding:9px 12px;font-size:14.5px;font-weight:500;line-height:1.5}
+
+/* ---------- modal ---------- */
+.modal-wrap{position:fixed;inset:0;background:rgba(20,26,45,.5);display:flex;align-items:flex-end;justify-content:center;
+  z-index:50;padding:0;animation:fade .2s ease;backdrop-filter:blur(2px)}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@media(min-width:560px){.modal-wrap{align-items:center;padding:20px}}
+.modal{background:var(--card);width:100%;max-width:520px;border-radius:22px 22px 0 0;max-height:86vh;display:flex;flex-direction:column;
+  box-shadow:0 -8px 40px rgba(0,0,0,.25);animation:slideup .25s ease}
+@media(min-width:560px){.modal{border-radius:22px}}
+@keyframes slideup{from{transform:translateY(30px)}to{transform:translateY(0)}}
+.modal-head{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;border-bottom:1px solid var(--line);
+  font-family:"Baloo Thai 2";font-weight:700}
+.modal-x{width:32px;height:32px;border-radius:50%;border:none;background:var(--bg);color:var(--muted);font-size:15px;cursor:pointer}
+.modal-body{padding:14px 18px;overflow:auto}
+.m-item{margin-bottom:12px}
+.m-item b{font-family:"Baloo Thai 2";font-size:15px}
+.m-item p{margin:3px 0 0;font-weight:500;font-size:14.5px;color:var(--ink);line-height:1.5}
+.modal-foot{padding:12px 18px calc(16px + env(safe-area-inset-bottom));border-top:1px solid var(--line);display:flex;gap:10px;flex-wrap:wrap}
+.modal-foot .btn{flex:1}
+
+@media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
+.modal.confirm{max-width:440px;align-self:center}
+.confirm-body{font-family:"Baloo Thai 2","Sarabun",sans-serif;font-weight:700;font-size:18px;text-align:center;padding:26px 22px 6px;line-height:1.5}
+
+/* CJK fallback so Chinese glyphs render (display faces lack them) */
+.q-text,.ans-q{font-family:"Baloo Thai 2","Sarabun","PingFang SC","Hiragino Sans GB","Heiti SC","Microsoft YaHei","Noto Sans SC","Noto Sans CJK SC",sans-serif}
+.ch-text,.choice,.ans-line,.ans-explain,.rev-text,.flash-body,.m-item p{font-family:"Sarabun","PingFang SC","Hiragino Sans GB","Heiti SC","Microsoft YaHei","Noto Sans SC","Noto Sans CJK SC",sans-serif}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+/* ============================================================
+   สนามสอบ ป.3  —  Mock Final Exam (P.3, Term 1/2569)
+   Source of truth: answer-key PDFs provided by the user.
+   Subjects: Science / Social / History / English
+   Vanilla JS, no build step. Data + engine + UI in one file.
+   ============================================================ */
+(function () {
+  "use strict";
+
+  /* ---------- Subject metadata ---------- */
+  var SUBJECTS = {
+    science: { name: "สนุกกับวิทย์", short: "วิทยาศาสตร์", emoji: "🔬", color: "#17B978",
+      topics: { factors: "ปัจจัยการดำรงชีวิต", food: "อาหาร 5 หมู่", animals: "การดำรงชีวิตของสัตว์", materials: "วัสดุรอบตัว", states: "การเปลี่ยนสถานะ" } },
+    social: { name: "สังคมศึกษา", short: "สังคม", emoji: "🌏", color: "#2D9CDB",
+      topics: { tripitaka: "พระไตรปิฎก", dhamma: "หลักธรรม", proverbs: "พุทธศาสนสุภาษิต", geo: "เครื่องมือภูมิศาสตร์" } },
+    history: { name: "ประวัติศาสตร์", short: "ประวัติ", emoji: "🏛️", color: "#F2994A",
+      topics: { settlement: "การตั้งถิ่นฐาน", culture: "วัฒนธรรม–ประเพณี" } },
+    english: { name: "ภาษาอังกฤษ", short: "English", emoji: "🔤", color: "#EB5E7C",
+      topics: { vocab: "Vocabulary", present: "Present Simple", qword: "Question Words", reading: "Reading" } },
+    chinese: { name: "ภาษาจีน", short: "จีน", emoji: "🇨🇳", color: "#D7263D",
+      topics: { pinyin: "อ่านพินอิน", vocab: "คำศัพท์", animals: "สัตว์", body: "ร่างกาย", sentence: "ประโยค", parts: "ส่วนประกอบตัวอักษร" } }
+  };
+  var SUBJECT_ORDER = ["science", "social", "history", "english", "chinese"];
+
+  /* ---------- Helper to keep question data compact ----------
+     q(topic, diff, text, [choices], answerIndex, explain)
+     tf(topic, diff, text, isTrue, explain)   choices fixed ถูก/ผิด  */
+  function makeQ(subject) {
+    var n = 0;
+    return {
+      q: function (topic, diff, text, choices, answer, explain) {
+        n++; return { id: subject + "-" + n, subject: subject, topic: topic, difficulty: diff,
+          type: "mc", question: text, choices: choices, answer: answer, explanation: explain, source: SUBJECTS[subject].name };
+      },
+      tf: function (topic, diff, text, isTrue, explain) {
+        n++; return { id: subject + "-" + n, subject: subject, topic: topic, difficulty: diff,
+          type: "tf", question: text, choices: ["ถูก", "ผิด"], answer: isTrue ? 0 : 1, explanation: explain, source: SUBJECTS[subject].name };
+      }
+    };
+  }
+
+  /* ================= SCIENCE ================= */
+  var S = makeQ("science");
+  var SCIENCE = [
+    S.q("factors", "easy", "ปัจจัยที่จำเป็นต่อการดำรงชีวิตของมนุษย์และสัตว์มีกี่อย่าง?", ["2 อย่าง", "3 อย่าง", "4 อย่าง", "5 อย่าง"], 1, "มี 3 อย่าง คือ น้ำ อาหาร และอากาศ ขาดอย่างใดอย่างหนึ่งไม่ได้"),
+    S.q("factors", "easy", "ข้อใดเป็นปัจจัยที่จำเป็นต่อการดำรงชีวิต?", ["ของเล่น", "อากาศ", "โทรศัพท์", "เงิน"], 1, "อากาศ (น้ำ อาหาร อากาศ) จำเป็นต่อชีวิต ส่วนของเล่นหรือเงินไม่ใช่"),
+    S.tf("factors", "easy", "มนุษย์สามารถขาดอากาศหายใจได้นานหลายวันโดยไม่เป็นอันตราย", false, "ผิด เพราะขาดอากาศเพียง 3–10 นาทีก็อาจเสียชีวิตได้"),
+    S.q("factors", "medium", "ถ้าขาดอากาศหายใจประมาณเท่าใด อาจทำให้เสียชีวิต?", ["3–10 นาที", "1 ชั่วโมง", "1 วัน", "1 สัปดาห์"], 0, "ขาดอากาศหายใจเพียง 3–10 นาที อาจทำให้เสียชีวิตได้"),
+    S.q("factors", "easy", "ปลาหายใจโดยใช้อวัยวะใด?", ["ปอด", "เหงือก", "ผิวหนัง", "จมูก"], 1, "ปลามีเหงือกไว้กรองแก๊สออกซิเจนที่อยู่ในน้ำ"),
+    S.q("factors", "medium", "ปลาได้รับแก๊สออกซิเจนจากที่ใด?", ["อากาศบนฟ้า", "แก๊สออกซิเจนที่อยู่ในน้ำ", "ดวงอาทิตย์", "อาหารเม็ด"], 1, "ในน้ำมีแก๊สออกซิเจน เหงือกจะกรองออกมาให้ปลาใช้หายใจ"),
+    S.q("factors", "easy", "น้ำมีประโยชน์ต่อร่างกายอย่างไร?", ["ช่วยลำเลียงสารอาหารและขับถ่าย", "ให้พลังงานสูง", "สร้างกล้ามเนื้อ", "ทำให้ตัวสูงทันที"], 0, "น้ำช่วยลำเลียงสารอาหารและช่วยการขับถ่ายของเสียออกจากร่างกาย"),
+    S.q("factors", "medium", "ร่างกายของเรามีน้ำเป็นส่วนประกอบประมาณเท่าใด?", ["1 ใน 4", "ครึ่งหนึ่ง", "3 ใน 4", "เต็มร้อย"], 2, "ร่างกายมีน้ำประมาณ 3 ใน 4 ส่วน จึงต้องดื่มน้ำทุกวัน"),
+    S.q("factors", "medium", "หลังทำกิจกรรมใดที่ควรดื่มน้ำมากที่สุด?", ["ออกกำลังกาย", "นอนหลับ", "อ่านหนังสือ", "ดูทีวี"], 0, "ออกกำลังกายทำให้เสียเหงื่อมาก จึงควรดื่มน้ำทดแทน"),
+    S.q("factors", "hard", "ข้อใดกล่าวถูกต้องเกี่ยวกับอากาศ?", ["มนุษย์ต้องการแก๊สออกซิเจนจากการหายใจ", "ในอากาศมีออกซิเจนมากที่สุด", "ร่างกายใช้แก๊สทุกชนิดในอากาศ", "คาร์บอนไดออกไซด์ช่วยให้เจริญเติบโต"], 0, "มนุษย์หายใจเอาแก๊สออกซิเจนไปใช้ ไม่ได้ใช้แก๊สทุกชนิด"),
+    S.q("factors", "medium", "บริเวณใดมีอากาศบริสุทธิ์มากที่สุด?", ["สวนสาธารณะ", "ริมถนนใหญ่", "โรงงานอุตสาหกรรม", "ตลาด"], 0, "สวนสาธารณะมีต้นไม้มาก อากาศจึงบริสุทธิ์ที่สุด"),
+
+    S.q("food", "easy", "อาหารหมู่ที่ 1 คือสารอาหารประเภทใด?", ["โปรตีน", "คาร์โบไฮเดรต", "ไขมัน", "วิตามิน"], 0, "หมู่ 1 คือโปรตีน (เนื้อ ไข่ นม ถั่ว) ช่วยให้ร่างกายเจริญเติบโตและซ่อมแซมส่วนที่สึกหรอ"),
+    S.q("food", "easy", "ข้าว แป้ง น้ำตาล อยู่ในอาหารหมู่ใด?", ["หมู่ที่ 1", "หมู่ที่ 2", "หมู่ที่ 3", "หมู่ที่ 5"], 1, "ข้าว แป้ง น้ำตาล เผือก มัน อยู่หมู่ที่ 2 (คาร์โบไฮเดรต) ให้พลังงาน"),
+    S.q("food", "easy", "อาหารหมู่ที่ 5 คือข้อใด?", ["ข้าว", "ผัก", "ไขมันและน้ำมัน", "ผลไม้"], 2, "หมู่ที่ 5 คือไขมันและน้ำมัน ให้พลังงานและความอบอุ่นแก่ร่างกาย"),
+    S.q("food", "easy", "ส้มให้สารอาหารประเภทใดเป็นหลัก?", ["วิตามิน (ผลไม้)", "โปรตีน", "ไขมัน", "คาร์โบไฮเดรต"], 0, "ส้มเป็นผลไม้ ให้วิตามินและเกลือแร่ ช่วยสร้างภูมิต้านทานโรค"),
+    S.q("food", "easy", "ไข่ไก่อยู่ในอาหารหมู่ใด?", ["หมู่ที่ 1", "หมู่ที่ 2", "หมู่ที่ 4", "หมู่ที่ 5"], 0, "ไข่เป็นโปรตีน อยู่หมู่ที่ 1 ช่วยเสริมสร้างและซ่อมแซมร่างกาย"),
+    S.q("food", "easy", "นมจัดอยู่ในอาหารหมู่ใด?", ["หมู่ที่ 1", "หมู่ที่ 2", "หมู่ที่ 3", "หมู่ที่ 5"], 0, "นมให้โปรตีน อยู่หมู่ที่ 1 เช่นเดียวกับเนื้อ ไข่ ถั่ว"),
+    S.q("food", "medium", "อาหารหมู่ใดให้พลังงานแก่ร่างกาย?", ["ข้าว แป้ง น้ำตาล", "ผัก", "ผลไม้", "น้ำเปล่า"], 0, "หมู่ที่ 2 (ข้าว แป้ง น้ำตาล) เป็นแหล่งพลังงานหลักของร่างกาย"),
+    S.q("food", "medium", "ถ้าต้องการพลังงานไปวิ่งเล่น ควรกินอาหารกลุ่มใดเป็นหลัก?", ["เนื้อ นม ไข่", "ข้าว แป้ง น้ำตาล", "ผักใบเขียว", "ผลไม้รสเปรี้ยว"], 1, "ข้าว แป้ง น้ำตาล เป็นแหล่งพลังงานที่ร่างกายเลือกใช้ก่อน"),
+    S.q("food", "medium", "หากต้องการวิตามิน ควรกินอาหารประเภทใด?", ["ผักและผลไม้", "เนื้อสัตว์", "น้ำมัน", "ขนมหวาน"], 0, "ผักและผลไม้ให้วิตามินและเกลือแร่ ช่วยให้ร่างกายแข็งแรงและขับถ่ายดี"),
+    S.q("food", "medium", "อาหารข้อใดควรกินในปริมาณน้อย?", ["ผัก", "ผลไม้", "ไขมันและน้ำมัน", "นม"], 2, "ไขมันและน้ำมันควรกินแต่น้อย เพราะให้พลังงานสูง กินมากไม่ดีต่อร่างกาย"),
+    S.tf("food", "medium", "เนื้อสัตว์ ไข่ นม และถั่ว ให้สารอาหารประเภทคาร์โบไฮเดรต", false, "ผิด เพราะเนื้อ ไข่ นม ถั่ว เป็นโปรตีน (หมู่ที่ 1)"),
+    S.tf("food", "easy", "ผักมีกากใยช่วยในการขับถ่าย", true, "ถูก ผักมีกากใยช่วยให้ระบบขับถ่ายทำงานได้ดี"),
+    S.q("food", "medium", "อ้อยไม่ชอบกินผัก จะเกิดผลอย่างไร?", ["มีโอกาสขาดวิตามินและเกลือแร่", "ตัวสูงเร็วกว่าเพื่อน", "เก่งขึ้นทันที", "ไม่มีผลใด ๆ"], 0, "ผักให้วิตามินและเกลือแร่ ถ้าไม่กินผักก็เสี่ยงขาดวิตามินและเกลือแร่"),
+    S.q("food", "hard", "พฤติกรรมการกินข้อใดส่งผลเสียต่อสุขภาพ?", ["กินอาหารครบ 5 หมู่", "ดื่มนมก่อนนอน", "กินแต่ขนมขบเคี้ยวแทนข้าวเย็น", "กินผักผลไม้ประจำ"], 2, "การกินขนมขบเคี้ยวแทนข้าว ทำให้ร่างกายขาดสารอาหารที่จำเป็น"),
+    S.q("food", "medium", "การกินอาหารครบ 5 หมู่ช่วยให้เกิดผลอย่างไร?", ["ร่างกายแข็งแรงและเจริญเติบโต", "ทำให้ง่วงนอนตลอดวัน", "ทำให้ตัวเตี้ยลง", "ทำให้ป่วยง่าย"], 0, "กินครบ 5 หมู่ทำให้ร่างกายได้รับสารอาหารครบ แข็งแรงและเจริญเติบโต"),
+
+    S.q("animals", "easy", "สัตว์ในข้อใดกินพืชเป็นอาหาร?", ["เสือ", "วัว", "งู", "ฉลาม"], 1, "วัวเป็นสัตว์กินพืช ส่วนเสือ งู ฉลาม เป็นสัตว์กินเนื้อ"),
+    S.q("animals", "easy", "ข้อใดเป็นสัตว์กินเนื้อ?", ["วัว", "ม้า", "เสือ", "กระบือ"], 2, "เสือเป็นสัตว์กินเนื้อ ส่วนวัว ม้า กระบือ เป็นสัตว์กินพืช"),
+    S.q("animals", "medium", "สัตว์ในข้อใดกินอาหารต่างจากข้ออื่น?", ["วัว", "ควาย", "ม้า", "เสือ"], 3, "วัว ควาย ม้า กินพืช แต่เสือกินเนื้อ จึงต่างจากพวก"),
+    S.q("animals", "easy", "สัตว์บก เช่น สุนัขและแมว หายใจทางใด?", ["เหงือก", "จมูก", "ผิวหนัง", "ครีบ"], 1, "สัตว์บกหายใจเอาแก๊สออกซิเจนในอากาศเข้าทางจมูก"),
+
+    S.q("materials", "easy", "ยางรถยนต์ทำมาจากวัสดุใด?", ["ไม้", "ยาง", "แก้ว", "โลหะ"], 1, "ยางรถยนต์ทำจากยาง ซึ่งยืดหยุ่นและเหนียว"),
+    S.q("materials", "easy", "แก้วน้ำใส ๆ ทำมาจากวัสดุใด?", ["พลาสติก", "ไม้", "แก้ว", "โลหะ"], 2, "แก้วน้ำใสทำจากแก้ว ซึ่งโปร่งใสแต่แตกหักง่าย"),
+    S.q("materials", "easy", "สมุดและกระดาษทำมาจากวัสดุใด?", ["พลาสติก", "เยื่อไม้ (ต้นไม้)", "โลหะ", "ยาง"], 1, "กระดาษทำจากเยื่อไม้ น้ำหนักเบาและดูดซับน้ำได้ง่าย"),
+    S.q("materials", "medium", "วัสดุใดแข็งแรง ทนทาน นำความร้อนและนำไฟฟ้าได้ดี?", ["ไม้", "แก้ว", "โลหะ", "กระดาษ"], 2, "โลหะแข็งแรงทนทาน นำความร้อนและไฟฟ้าได้ดี"),
+    S.q("materials", "medium", "วัสดุใด 'น้ำหนักเบา ดูดซับน้ำง่าย เหมาะสำหรับเขียน ไม่นำไฟฟ้า'?", ["กระดาษ", "แก้ว", "โลหะ", "หิน"], 0, "สมบัติเหล่านี้ตรงกับกระดาษ"),
+    S.q("materials", "medium", "วัสดุใด 'ใสและเปราะบาง แตกหักง่าย ทนความร้อนสูง'?", ["พลาสติก", "แก้ว", "ไม้", "ยาง"], 1, "สมบัติใส เปราะ แตกหักง่าย คือแก้ว"),
+    S.q("materials", "medium", "วัสดุใดสามารถเกิดสนิมได้?", ["เซรามิก", "โลหะ", "ไม้", "พลาสติก"], 1, "โลหะเมื่อโดนน้ำและอากาศนาน ๆ จะเกิดสนิม"),
+    S.q("materials", "easy", "ถ้าทำน้ำหกที่โต๊ะ ควรใช้สิ่งใดซับน้ำ?", ["ถุงพลาสติก", "กระดาษทิชชู่", "ช้อนโลหะ", "แก้ว"], 1, "กระดาษทิชชู่ดูดซับน้ำได้ดี จึงเหมาะกับการซับน้ำ"),
+    S.q("materials", "medium", "เพราะเหตุใดจึงไม่ควรใส่อาหารร้อนจัดในภาชนะพลาสติก?", ["สารเคลือบพลาสติกอาจละลายปนไปกับอาหาร", "พลาสติกจะแข็งขึ้น", "อาหารจะเย็นเร็ว", "พลาสติกจะเปลี่ยนสี"], 0, "ความร้อนทำให้สารในพลาสติกละลายปนกับอาหาร จึงเป็นอันตราย"),
+    S.q("materials", "hard", "จากการทดลอง C ขูด A และ B เป็นรอย, B ขูด A เป็นรอย เรียงความแข็งจากมากไปน้อยได้อย่างไร?", ["A – B – C", "C – B – A", "B – C – A", "A – C – B"], 1, "ของที่ขูดผู้อื่นเป็นรอยแต่ไม่ถูกขูด แสดงว่าแข็งกว่า จึงเป็น C แข็งสุด แล้ว B แล้ว A"),
+
+    S.q("states", "easy", "น้ำแข็งมีสถานะเป็นแบบใด?", ["ของแข็ง", "ของเหลว", "แก๊ส", "ไม่มีสถานะ"], 0, "น้ำแข็งคือน้ำที่เย็นจนแข็งตัว จึงมีสถานะเป็นของแข็ง"),
+    S.tf("states", "easy", "น้ำแข็งมีสถานะเป็นของแข็ง", true, "ถูก น้ำแข็งคือน้ำที่เย็นจนกลายเป็นของแข็ง"),
+    S.q("states", "easy", "เมื่อไอศกรีมได้รับความร้อน จะเกิดอะไรขึ้น?", ["แข็งตัว", "ละลาย", "ระเหยหมด", "เปลี่ยนสี"], 1, "ความร้อนทำให้ไอศกรีมละลาย เปลี่ยนจากของแข็งเป็นของเหลว"),
+    S.q("states", "easy", "เมื่อน้ำได้รับความเย็นมากพอ จะเปลี่ยนเป็นอะไร?", ["ไอน้ำ", "น้ำแข็ง", "น้ำร้อน", "ฟองอากาศ"], 1, "น้ำ (ของเหลว) เมื่อเย็นจัดจะแข็งตัวเป็นน้ำแข็ง (ของแข็ง)"),
+    S.q("states", "medium", "การเปลี่ยนแปลงข้อใดเกิดจากการให้ 'ความร้อน'?", ["น้ำ → น้ำแข็ง", "ข้าวโพด → ข้าวโพดคั่ว", "น้ำ → น้ำแข็งใส", "นม → นมแช่แข็ง"], 1, "ข้าวโพดคั่วเกิดจากการให้ความร้อน ส่วนน้ำแข็งเกิดจากความเย็น"),
+    S.q("states", "medium", "การเปลี่ยนแปลงข้อใดเกิดจากการให้ 'ความเย็น'?", ["น้ำ → น้ำแข็ง", "ไม้ → ถ่านไม้", "ข้าวโพด → ข้าวโพดคั่ว", "แป้ง → ขนมปังอบ"], 0, "น้ำกลายเป็นน้ำแข็งเพราะได้รับความเย็น ส่วนข้ออื่นได้รับความร้อน"),
+    S.q("states", "medium", "เทน้ำร้อนจัดลงในแก้ว อาจเกิดอะไรขึ้น?", ["แก้วร้าวและแตกได้", "แก้วหดเล็กลง", "แก้วนิ่มลง", "แก้วเปลี่ยนสี"], 0, "ความร้อนจัดที่เปลี่ยนแปลงเร็ว ทำให้แก้วร้าวและแตกได้"),
+    S.q("states", "hard", "ทองคำที่หลอมเหลวแล้ว เมื่อทำให้เย็นลงจะเป็นอย่างไร?", ["กลายเป็นแก๊ส", "กลับเป็นของแข็งเหมือนเดิม", "หายไป", "กลายเป็นน้ำ"], 1, "ทองคำเมื่อเย็นลงจะแข็งตัวกลับเป็นของแข็งเหมือนเดิม")
+  ];
+
+  /* ================= SOCIAL ================= */
+  var O = makeQ("social");
+  var SOCIAL = [
+    O.q("tripitaka", "easy", "คำว่า 'ไตร' ในพระไตรปิฎก แปลว่าอะไร?", ["สอง", "สาม", "สี่", "ห้า"], 1, "'ไตร' แปลว่า สาม พระไตรปิฎกจึงมี 3 ส่วน"),
+    O.q("tripitaka", "easy", "คำว่า 'ปิฎก' แปลว่าอะไร?", ["ตะกร้า (คัมภีร์)", "ดอกไม้", "บ้าน", "แม่น้ำ"], 0, "'ปิฎก' แปลว่า ตะกร้า หรือ คัมภีร์"),
+    O.q("tripitaka", "easy", "พระไตรปิฎกมีทั้งหมดกี่ส่วน?", ["2 ส่วน", "3 ส่วน", "4 ส่วน", "5 ส่วน"], 1, "พระไตรปิฎกมี 3 ส่วน คือ พระวินัยปิฎก พระสุตตันตปิฎก และพระอภิธรรมปิฎก"),
+    O.q("tripitaka", "easy", "พระไตรปิฎกคือคัมภีร์ที่บรรจุสิ่งใด?", ["คำสอนของพระพุทธเจ้า", "เวทมนตร์", "ตำราวิทยาศาสตร์", "นิทานทั่วไป"], 0, "พระไตรปิฎกเป็นคัมภีร์ที่รวบรวมคำสอนของพระพุทธเจ้าไว้ 3 หมวด"),
+    O.tf("tripitaka", "medium", "พระวินัยปิฎกมีนิทานชาดกและเรื่องเล่าประกอบมากมาย", false, "ผิด นิทานชาดกและเรื่องเล่าอยู่ในพระสุตตันตปิฎก ส่วนพระวินัยปิฎกเป็นศีลของพระสงฆ์"),
+    O.q("tripitaka", "medium", "ศีล 227 ข้อของพระสงฆ์ อยู่ในปิฎกใด?", ["พระวินัยปิฎก", "พระสุตตันตปิฎก", "พระอภิธรรมปิฎก", "พระไตรสรณคมน์"], 0, "พระวินัยปิฎกเป็นกฎระเบียบและศีลของพระสงฆ์ (227 ข้อ)"),
+    O.q("tripitaka", "medium", "หลักธรรมเชิงลึก เช่น ขันธ์ 5 ที่ไม่มีเรื่องเล่าประกอบ อยู่ในปิฎกใด?", ["พระอภิธรรมปิฎก", "พระวินัยปิฎก", "พระสุตตันตปิฎก", "ชาดก"], 0, "พระอภิธรรมปิฎกเป็นหลักธรรมคำสอนเชิงลึก ไม่มีเรื่องเล่าประกอบ"),
+    O.q("tripitaka", "medium", "การเรียนรู้พระไตรปิฎกมีประโยชน์อย่างไรกับนักเรียน?", ["นำหลักธรรมคำสอนไปปฏิบัติ", "เก่งกว่าคนอื่นทันที", "ได้อ่านนิทานสนุก ๆ", "ทำข้อสอบได้คะแนนเต็มเสมอ"], 0, "ประโยชน์ที่แท้จริงคือนำหลักธรรมคำสอนไปปฏิบัติในชีวิต"),
+
+    O.q("dhamma", "easy", "หัวใจของพระพุทธศาสนาคือหลักธรรมใด?", ["ศีล 5", "โอวาท 3", "อริยสัจ 4", "ไตรสิกขา"], 1, "โอวาท 3 ถือเป็นหัวใจของพระพุทธศาสนา"),
+    O.q("dhamma", "easy", "โอวาท 3 ประกอบด้วยข้อใด?", ["ละเว้นความชั่ว ทำความดี ทำจิตใจให้บริสุทธิ์", "กิน นอน เล่น", "เรียน อ่าน เขียน", "ให้ทาน รักษาศีล ภาวนา"], 0, "โอวาท 3 คือ ละเว้นความชั่ว ทำความดี และทำจิตใจให้บริสุทธิ์"),
+    O.q("dhamma", "medium", "การสวดมนต์ไหว้พระ เป็นการปฏิบัติตามโอวาท 3 ข้อใด?", ["ละเว้นความชั่ว", "ทำความดี", "ทำจิตใจให้บริสุทธิ์", "ให้ทาน"], 2, "การสวดมนต์ไหว้พระช่วยทำจิตใจให้สงบและบริสุทธิ์"),
+    O.q("dhamma", "easy", "เบญจศีล คือข้อควรละเว้นกี่ข้อ?", ["3 ข้อ", "4 ข้อ", "5 ข้อ", "6 ข้อ"], 2, "เบญจศีล คือข้อควรละเว้น 5 ข้อ เช่น ไม่ฆ่าสัตว์ ไม่ลักขโมย"),
+    O.q("dhamma", "medium", "การไม่ลักขโมยของผู้อื่น ตรงกับโอวาท 3 ข้อใด?", ["การไม่ทำความชั่ว", "การทำความดี", "การทำจิตใจให้บริสุทธิ์", "การให้ทาน"], 0, "การไม่ลักขโมยคือการละเว้นความชั่ว (ไม่ทำความชั่ว)"),
+    O.q("dhamma", "medium", "หลักธรรมใดเป็นหลักปฏิบัติของผู้ครองเรือน (อยู่ร่วมกันในครอบครัว)?", ["เบญจศีล", "เบญจธรรม", "ฆราวาสธรรม 4", "สังคหวัตถุ 4"], 2, "ฆราวาสธรรม 4 เป็นหลักธรรมสำหรับผู้ครองเรือน"),
+    O.q("dhamma", "medium", "ฆราวาสธรรม 4 ประกอบด้วยข้อใด?", ["สัจจะ ทมะ ขันติ จาคะ", "ทาน ศีล ภาวนา", "เมตตา กรุณา มุทิตา อุเบกขา", "ศีล สมาธิ ปัญญา"], 0, "ฆราวาสธรรม 4 คือ สัจจะ ทมะ ขันติ และจาคะ"),
+    O.q("dhamma", "medium", "'ความอดทน ขยัน ไม่ย่อท้อต่อความลำบาก' ตรงกับหลักธรรมข้อใด?", ["สัจจะ", "ทมะ", "ขันติ", "จาคะ"], 2, "ขันติ คือความอดทนทั้งกายและใจ ตั้งใจทำงานด้วยความขยัน"),
+    O.q("dhamma", "medium", "'การข่มใจ ไม่โกรธเมื่อถูกเพื่อนล้อเลียน' ตรงกับหลักธรรมข้อใด?", ["สัจจะ", "ทมะ", "ขันติ", "จาคะ"], 1, "ทมะ คือการข่มใจ ควบคุมอารมณ์ไม่ให้โกรธ"),
+    O.q("dhamma", "medium", "'ยอมสละความสุขส่วนตัว ช่วยเหลือและเอื้อเฟื้อผู้อื่น' ตรงกับข้อใด?", ["สัจจะ", "ทมะ", "ขันติ", "จาคะ"], 3, "จาคะ คือการเสียสละ แบ่งปัน ช่วยเหลือผู้อื่น"),
+    O.q("dhamma", "medium", "ถ้าดื่มสุราจะทำให้บกพร่องในคุณธรรมข้อใด?", ["สติ", "สามัคคี", "ความขยัน", "ความประหยัด"], 0, "การดื่มสุราทำให้ขาดสติ ควบคุมตัวเองไม่ได้"),
+    O.q("dhamma", "medium", "สังคหวัตถุ 4 เป็นหลักธรรมเพื่ออะไร?", ["ยึดเหนี่ยวจิตใจให้อยู่ร่วมกันอย่างมีความสุข", "ทำให้ร่ำรวย", "ทำให้เก่งเรียน", "ทำให้แข็งแรง"], 0, "สังคหวัตถุ 4 เป็นหลักธรรมยึดเหนี่ยวจิตใจ ทำให้อยู่ร่วมกันอย่างมีความสุข"),
+    O.q("dhamma", "easy", "'พูดจาไพเราะอ่อนหวานกับผู้อื่น' ตรงกับข้อใดในสังคหวัตถุ 4?", ["ทาน", "ปิยวาจา", "อัตถจริยา", "สมานัตตตา"], 1, "ปิยวาจา คือการพูดจาไพเราะ สุภาพอ่อนหวาน"),
+
+    O.q("proverbs", "medium", "'ถ้อยคำสั้น ๆ ให้ข้อคิดเตือนใจตามคำสอนพระพุทธศาสนา' เรียกว่าอะไร?", ["ชาดก", "พระไตรปิฎก", "พุทธศาสนสุภาษิต", "บันทึกจดหมายเหตุ"], 2, "ถ้อยคำสั้น ๆ ที่ให้ข้อคิดเตือนใจ เรียกว่า พุทธศาสนสุภาษิต"),
+    O.q("proverbs", "medium", "'ททมาโน ปิโย โหติ' มีความหมายว่าอย่างไร?", ["ผู้ให้ย่อมเป็นที่รัก", "ความอดทนนำมาซึ่งความสุข", "ผู้มีปัญญาย่อมชนะ", "ความสามัคคีคือพลัง"], 0, "'ททมาโน ปิโย โหติ' แปลว่า ผู้ให้ย่อมเป็นที่รัก"),
+    O.q("proverbs", "hard", "ผู้ใหญ่บ้านพูดไกล่เกลี่ยด้วยเหตุผลจนทุกฝ่ายเลิกทะเลาะและได้ข้อยุติ สอดคล้องกับสุภาษิตใด?", ["ททมาโน ปิโย โหติ", "โมกฺโข กลฺยาณิยา สาธุ", "อตฺตา หิ อตฺตโน นาโถ", "สุขา สงฺฆสฺส สามคฺคี"], 1, "การเจรจาด้วยถ้อยคำที่ดีจนสำเร็จ ตรงกับ 'โมกฺโข กลฺยาณิยา สาธุ' (การพูดจาดีย่อมสำเร็จผล)"),
+
+    O.q("geo", "easy", "เครื่องมือใดใช้บอก 'ทิศ'?", ["แผนที่", "เข็มทิศ", "รูปถ่าย", "แผนภูมิ"], 1, "เข็มทิศเป็นเครื่องมือที่ใช้บอกทิศทาง"),
+    O.q("geo", "easy", "'แผนผัง' คืออะไร?", ["การย่อส่วนของบริเวณหรือสถานที่ต่าง ๆ", "ภาพถ่ายจากดาวเทียม", "เครื่องบอกอุณหภูมิ", "หนังสือนิทาน"], 0, "แผนผังคือการย่อส่วนของบริเวณหรือสถานที่ต่าง ๆ ลงบนกระดาษ"),
+    O.q("geo", "medium", "ถ้าต้องการศึกษาตำแหน่งโต๊ะที่นั่งในห้องเรียน ควรใช้เครื่องมือใด?", ["เข็มทิศ", "แผนที่", "รูปถ่าย", "แผนผัง"], 3, "แผนผังเหมาะกับพื้นที่เล็ก เช่น ตำแหน่งโต๊ะในห้องเรียน"),
+    O.q("geo", "medium", "ในแผนที่ พื้นที่ราบลุ่มใช้สีใด?", ["สีฟ้า", "สีเขียว", "สีเหลือง", "สีน้ำตาล"], 1, "พื้นที่ราบลุ่มในแผนที่ใช้สีเขียว"),
+    O.q("geo", "medium", "ในแผนที่ ภูเขาสูงใช้สีใด?", ["สีฟ้า", "สีเขียว", "สีเหลือง", "สีน้ำตาล"], 3, "ภูเขาสูงในแผนที่ใช้สีน้ำตาล"),
+    O.q("geo", "medium", "ในแผนที่ ทะเลและมหาสมุทรใช้สีใด?", ["สีฟ้า", "สีเขียว", "สีเหลือง", "สีน้ำตาล"], 0, "ทะเลและมหาสมุทรในแผนที่ใช้สีฟ้า"),
+    O.q("geo", "medium", "เข็มทิศแสดงทิศหลักและทิศรองรวมกี่ทิศ?", ["4 ทิศ", "6 ทิศ", "8 ทิศ", "12 ทิศ"], 2, "เข็มทิศแสดงทิศหลัก 4 ทิศและทิศรอง 4 ทิศ รวมเป็น 8 ทิศ"),
+    O.q("geo", "medium", "มาตราส่วน '1 เซนติเมตรต่อ 100 กิโลเมตร' หมายความว่าอย่างไร?", ["1 ซม.ในแผนที่ เท่ากับ 100 กม.จริง", "แผนที่ยาว 100 กม.", "ใช้ดินสอ 1 แท่ง", "ย่อ 1 เท่า"], 0, "มาตราส่วนบอกว่า 1 ซม.บนแผนที่ = ระยะทางจริง 100 กม.บนพื้นโลก"),
+    O.q("geo", "easy", "ข้อใดจัดเป็น 'ข้อมูลทางภูมิศาสตร์'?", ["แม่ค้า", "ลูกฟุตบอล", "ชายหาด", "รถจักรยาน"], 2, "ชายหาดเป็นลักษณะของสถานที่/พื้นผิวโลก จึงเป็นข้อมูลทางภูมิศาสตร์"),
+    O.q("geo", "medium", "ขั้นตอนแรกของการจัดทำแผนผังชุมชนคือข้อใด?", ["สำรวจภายในบริเวณชุมชน", "ร่างแผนผังคร่าว ๆ", "กำหนดสัญลักษณ์", "วาดตามความเข้าใจของตนเอง"], 0, "ต้องสำรวจพื้นที่จริงให้ทั่วก่อน แล้วจึงร่างและวาดแผนผัง"),
+    O.q("geo", "medium", "เครื่องมือทางภูมิศาสตร์ใดที่ต้องใช้เครื่องบินบินถ่ายภาพ?", ["แผนที่", "แผนผัง", "ภาพถ่ายทางอากาศ", "เข็มทิศ"], 2, "ภาพถ่ายทางอากาศได้จากการใช้เครื่องบินบินถ่ายภาพพื้นที่"),
+    O.q("geo", "medium", "ข้อใดคือประโยชน์ของแผนที่?", ["ช่วยให้ถึงที่หมายและไม่หลงทาง", "ช่วยให้ตัวสูงขึ้น", "ช่วยให้เรียนเก่ง", "ช่วยให้แข็งแรง"], 0, "แผนที่ช่วยบอกเส้นทาง ทำให้ไปถึงที่หมายและไม่หลงทาง")
+  ];
+
+  /* ================= HISTORY ================= */
+  var H = makeQ("history");
+  var HISTORY = [
+    H.q("settlement", "easy", "'การตั้งถิ่นฐาน' หมายถึงอะไร?", ["การเลือกสถานที่เพื่อสร้างที่อยู่อาศัย", "การไปเที่ยวต่างจังหวัด", "การย้ายโรงเรียน", "การทำอาหาร"], 0, "การตั้งถิ่นฐาน คือการเลือกสถานที่เพื่อสร้างที่อยู่อาศัย"),
+    H.q("settlement", "easy", "ข้อใด 'ไม่ใช่' ปัจจัยทางภูมิศาสตร์?", ["ภูมิประเทศ", "ภูมิอากาศ", "ทรัพยากรธรรมชาติ", "ความปลอดภัยในชีวิต"], 3, "ความปลอดภัยในชีวิตเป็นปัจจัยทางสังคม ไม่ใช่ทางภูมิศาสตร์"),
+    H.q("settlement", "easy", "คนสมัยก่อนนิยมตั้งบ้านเรือนใกล้แม่น้ำเพราะเหตุใด?", ["เพื่อใช้น้ำอุปโภคบริโภคและเดินทางสะดวก", "เพราะน้ำท่วมบ่อย", "เพราะอากาศหนาว", "เพราะไกลตลาด"], 0, "อยู่ใกล้แม่น้ำเพื่อใช้น้ำในการดำรงชีวิตและเดินทางทางน้ำได้สะดวก"),
+    H.q("settlement", "medium", "ปัจจัยทางธรรมชาติที่สำคัญที่สุดในการเลือกที่อยู่อาศัยคืออะไร?", ["แหล่งน้ำ", "ภูเขา", "ป่าไม้", "แร่ธาตุ"], 0, "แหล่งน้ำสำคัญที่สุด เพราะจำเป็นต่อการอุปโภค บริโภค และการเกษตร"),
+    H.q("settlement", "easy", "ลักษณะภูมิประเทศแบบใดเหมาะแก่การสร้างบ้านและทำเกษตรมากที่สุด?", ["ที่ราบลุ่ม", "ภูเขาสูง", "ทะเลทราย", "หน้าผา"], 0, "ที่ราบลุ่มมีดินอุดมสมบูรณ์ เหมาะทำเกษตรและสร้างที่อยู่อาศัย"),
+    H.q("settlement", "medium", "'การคมนาคมขนส่ง' จัดเป็นปัจจัยประเภทใด?", ["ปัจจัยทางภูมิศาสตร์", "ปัจจัยทางสังคม", "ปัจจัยทางธรรมชาติ", "ปัจจัยทางอากาศ"], 1, "การคมนาคมขนส่งเป็นสิ่งที่มนุษย์สร้างขึ้น จึงเป็นปัจจัยทางสังคม"),
+    H.q("settlement", "medium", "คนที่อาศัยริมแม่น้ำนิยมปลูกบ้านใต้ถุนสูงเพื่ออะไร?", ["ป้องกันน้ำท่วม", "ให้บ้านสวยงาม", "กันความหนาว", "ประหยัดไม้"], 0, "บ้านใต้ถุนสูงช่วยป้องกันน้ำท่วมในพื้นที่ราบลุ่มริมน้ำ"),
+    H.q("settlement", "medium", "ชุมชนชนบทส่วนใหญ่ประกอบอาชีพใด?", ["เกษตรกรรม", "ค้าขายในห้าง", "งานโรงงาน", "พนักงานออฟฟิศ"], 0, "คนในชุมชนชนบทส่วนใหญ่ประกอบอาชีพเกษตรกรรม"),
+    H.q("settlement", "hard", "เพราะเหตุใดชุมชนในอดีตจึงตั้งถิ่นฐานบริเวณที่ราบลุ่มแม่น้ำ?", ["เพาะปลูกได้ดี", "น้ำไม่ท่วม", "อากาศเย็นสบาย", "ทำประมงได้เงินดี"], 0, "ที่ราบลุ่มแม่น้ำมีดินดี น้ำอุดมสมบูรณ์ จึงเพาะปลูกได้ดี"),
+    H.q("settlement", "medium", "ปัจจุบันผู้คนนิยมย้ายไปตั้งถิ่นฐานในเมืองใหญ่เพราะเหตุใด?", ["มีโอกาสในการศึกษาและการทำงานมากกว่า", "อากาศดีกว่า", "เงียบสงบกว่า", "ค่าครองชีพถูกกว่า"], 0, "เมืองใหญ่มีโอกาสด้านการศึกษาและการทำงานมากกว่าชนบท"),
+    H.q("settlement", "medium", "ปัจจัยทางสังคมเกิดจากอะไร?", ["สิ่งที่มนุษย์สร้างขึ้น เช่น เทคโนโลยี การคมนาคม", "ภูเขาและแม่น้ำ", "ฝนและแดด", "แร่ธาตุใต้ดิน"], 0, "ปัจจัยทางสังคมเกิดจากสิ่งที่มนุษย์สร้างขึ้น เช่น เทคโนโลยี กฎหมาย การคมนาคม"),
+
+    H.q("culture", "easy", "ประเพณี 'ผีตาโขน' เป็นของภาคใด?", ["ภาคเหนือ", "ภาคกลาง", "ภาคใต้", "ภาคตะวันออกเฉียงเหนือ"], 3, "ผีตาโขน (จ.เลย) เป็นประเพณีของภาคตะวันออกเฉียงเหนือ"),
+    H.q("culture", "easy", "อาหาร 'แกงไตปลา คั่วกลิ้ง' เป็นอาหารของภาคใด?", ["ภาคเหนือ", "ภาคกลาง", "ภาคใต้", "ภาคอีสาน"], 2, "แกงไตปลาและคั่วกลิ้งเป็นอาหารรสจัดของภาคใต้"),
+    H.q("culture", "easy", "อาหาร 'ข้าวซอย น้ำพริกอ่อง ไส้อั่ว' เป็นของภาคใด?", ["ภาคเหนือ", "ภาคกลาง", "ภาคใต้", "ภาคอีสาน"], 0, "ข้าวซอย น้ำพริกอ่อง ไส้อั่ว เป็นอาหารของภาคเหนือ"),
+    H.q("culture", "medium", "ประเพณี 'บุญบั้งไฟ' มีจุดประสงค์เพื่ออะไร?", ["เพื่อขอฝน (บูชาพญาแถน)", "เพื่อขอบคุณพระอาทิตย์", "เพื่อไล่ผี", "เพื่อฉลองปีใหม่"], 0, "บุญบั้งไฟจัดขึ้นเพื่อขอฝน โดยการบูชาพญาแถน"),
+    H.q("culture", "medium", "ประเพณีใดของภาคอีสานมีจุดประสงค์เหมือนบุญบั้งไฟ (ขอฝน)?", ["ผีตาโขน", "แห่นางแมว", "ไหลเรือไฟ", "แห่เทียนพรรษา"], 1, "แห่นางแมวเป็นประเพณีขอฝนเช่นเดียวกับบุญบั้งไฟ"),
+    H.q("culture", "medium", "ประเพณี 'กินเจ' งดกินเนื้อสัตว์ เป็นของชาวไทยเชื้อสายใด?", ["เชื้อสายจีน", "เชื้อสายมอญ", "เชื้อสายลาว", "เชื้อสายเขมร"], 0, "ประเพณีกินเจเป็นของชาวไทยเชื้อสายจีน ที่งดบริโภคเนื้อสัตว์"),
+    H.q("culture", "easy", "อาหาร 'ลาบหมู แกงอ่อม ส้มตำ' เป็นของภาคใด?", ["ภาคเหนือ", "ภาคกลาง", "ภาคใต้", "ภาคตะวันออกเฉียงเหนือ"], 3, "ลาบ แกงอ่อม ส้มตำ เป็นอาหารของภาคตะวันออกเฉียงเหนือ (อีสาน)"),
+    H.q("culture", "medium", "ประเพณี 'ตักบาตรดอกไม้' (จ.สระบุรี) เป็นของภาคใด?", ["ภาคเหนือ", "ภาคกลาง", "ภาคใต้", "ภาคอีสาน"], 1, "ตักบาตรดอกไม้ที่ จ.สระบุรี เป็นประเพณีของภาคกลาง"),
+    H.q("culture", "medium", "'บูชาแม่โพสพ' เกี่ยวข้องกับการประกอบอาชีพใดของภาคกลาง?", ["การทำนา", "การประมง", "การค้าขาย", "การทำเหมือง"], 0, "แม่โพสพเป็นเทพีแห่งข้าว การบูชาจึงเกี่ยวกับการทำนา"),
+    H.q("culture", "medium", "ประเพณีและวัฒนธรรมของภาคใต้คือข้อใด?", ["ชักพระ", "ผีตาโขน", "ตักบาตรดอกไม้", "ปอยส่างลอง"], 0, "ประเพณีชักพระเป็นของภาคใต้"),
+    H.q("culture", "hard", "'เรือนกาแล มีหน้าจั่วแกะสลักสวยงาม' เป็นลักษณะบ้านของภาคใด?", ["ภาคเหนือ", "ภาคกลาง", "ภาคใต้", "ภาคอีสาน"], 0, "เรือนกาแลที่มีหน้าจั่วแกะสลักเป็นบ้านแบบภาคเหนือ"),
+    H.q("culture", "medium", "ประโยชน์ของการปฏิบัติตามประเพณีท้องถิ่นคือข้อใด?", ["เกิดความสามัคคีและภาคภูมิใจในท้องถิ่น", "ทำให้ร่ำรวยขึ้น", "ทำให้เรียนเก่งขึ้น", "ทำให้ตัวสูงขึ้น"], 0, "การสืบทอดประเพณีช่วยให้เกิดความสามัคคีและภาคภูมิใจในท้องถิ่น")
+  ];
+
+  /* ================= ENGLISH ================= */
+  var E = makeQ("english");
+  var ENGLISH = [
+    E.q("vocab", "easy", "It has two wheels and pedals. You can ride it to a park. What is it?", ["bus", "bike", "ship", "boat"], 1, "จักรยาน (bike) มีสองล้อและมีบันไดถีบ (pedals)"),
+    E.q("vocab", "easy", "This large vehicle carries things and goods. What is it?", ["bus", "bike", "helicopter", "truck"], 3, "รถบรรทุก (truck) ใช้บรรทุกสิ่งของและสินค้า"),
+    E.q("vocab", "easy", "This vehicle runs on tracks and carries many people. What is it?", ["ship", "bike", "train", "motorcycle"], 2, "รถไฟ (train) วิ่งบนราง และบรรทุกคนได้จำนวนมาก"),
+    E.q("vocab", "easy", "This vehicle travels above the city on special tracks. What is it?", ["sky train", "bus", "van", "motorcycle"], 0, "รถไฟฟ้า (sky train) วิ่งบนรางพิเศษเหนือเมือง"),
+    E.q("vocab", "easy", "You can travel across the sea in this. What is it?", ["plane", "ship", "truck", "bicycle"], 1, "เรือ (ship) ใช้เดินทางข้ามทะเล"),
+    E.q("vocab", "easy", "This flying vehicle has large blades on top. What is it?", ["train", "helicopter", "truck", "sky train"], 1, "เฮลิคอปเตอร์ (helicopter) มีใบพัดขนาดใหญ่อยู่ด้านบน"),
+    E.q("vocab", "easy", "You can borrow books and read quietly here. Where is it?", ["store", "library", "playground", "kitchen"], 1, "ห้องสมุด (library) เป็นที่ยืมหนังสือและอ่านเงียบ ๆ"),
+    E.q("vocab", "easy", "You can buy food, clothes, and other things here. Where is it?", ["store", "town", "library", "canteen"], 0, "ร้านค้า (store) เป็นที่ซื้อของต่าง ๆ"),
+    E.q("vocab", "easy", "Children can play, run, and have fun here. Where is it?", ["playground", "ship", "classroom", "harbor"], 0, "สนามเด็กเล่น (playground) เป็นที่เด็กวิ่งเล่นสนุก"),
+    E.q("vocab", "easy", "A large place with many buildings, roads, and people is a ___.", ["store", "town", "city", "market"], 2, "เมืองใหญ่ (city) มีอาคาร ถนน และผู้คนมากมาย"),
+    E.q("vocab", "medium", "The clown made everyone laugh. He was ___.", ["scary", "funny", "kind", "dirty"], 1, "funny = ตลก เพราะทำให้ทุกคนหัวเราะ"),
+    E.q("vocab", "medium", "The girl got the highest score. She is very ___.", ["naughty", "dirty", "smart", "scary"], 2, "smart = ฉลาด เพราะได้คะแนนสูงสุด"),
+    E.q("vocab", "medium", "Which word means 'well-known by many people'?", ["dirty", "naughty", "famous", "clean"], 2, "famous = มีชื่อเสียง เป็นที่รู้จักของคนจำนวนมาก"),
+    E.q("vocab", "medium", "The monster in the movie was ___.", ["funny", "kind", "scary", "clean"], 2, "scary = น่ากลัว"),
+
+    E.q("present", "easy", "Sam often ___ to the beach with his family.", ["go", "goes", "going", "went"], 1, "ประธานเอกพจน์ (Sam) ใน Present Simple เติม -es → goes"),
+    E.q("present", "easy", "The baby ___ milk every morning.", ["drink", "drinks", "drinking", "drank"], 1, "The baby เป็นเอกพจน์ กริยาเติม -s → drinks"),
+    E.q("present", "medium", "Our teacher ___ Math very well.", ["teach", "teachs", "teaches", "teaching"], 2, "กริยาลงท้าย -ch เติม -es → teaches"),
+    E.q("present", "medium", "Water ___ at 0 degrees.", ["freeze", "freezes", "froze", "freezing"], 1, "Water เป็นเอกพจน์ กริยาเติม -s → freezes"),
+    E.q("present", "medium", "Ben ___ his teeth every morning.", ["brush", "brushs", "brushes", "brushing"], 2, "กริยาลงท้าย -sh เติม -es → brushes"),
+    E.q("present", "medium", "The sun ___ in the east.", ["rise", "rises", "rose", "rising"], 1, "The sun เป็นเอกพจน์ กริยาเติม -s → rises"),
+    E.q("present", "medium", "My sister ___ beautiful pictures.", ["draw", "draws", "drew", "drawing"], 1, "My sister เป็นเอกพจน์ กริยาเติม -s → draws"),
+    E.q("present", "hard", "Choose the correct sentence.", ["Tom brush his teeth.", "Tom brushes his teeth.", "Tom brushing his teeth.", "Tom brushed his teeth."], 1, "Tom (เอกพจน์) + กริยาเติม -es → Tom brushes his teeth."),
+    E.q("present", "medium", "They ___ dinner every evening.", ["cook", "cooks", "cooking", "cooked"], 0, "They เป็นพหูพจน์ ใช้กริยารูปปกติ → cook"),
+
+    E.q("qword", "easy", "___ is your birthday?  (Answer: On Monday.)", ["What", "When", "Where", "Who"], 1, "ถามเวลา/วัน ใช้ When"),
+    E.q("qword", "easy", "___ are you doing now?  (Answer: I am reading.)", ["What", "When", "Where", "Why"], 0, "ถามว่าทำอะไร ใช้ What"),
+    E.q("qword", "easy", "___ does he live?  (Answer: In Bangkok.)", ["Who", "When", "Where", "Why"], 2, "ถามสถานที่ ใช้ Where"),
+    E.q("qword", "medium", "___ pencil is this?  (Answer: It belongs to Sarah.)", ["Who", "Whose", "Where", "Why"], 1, "ถามความเป็นเจ้าของ ใช้ Whose"),
+    E.q("qword", "medium", "___ are you late?  (Answer: Because I missed the bus.)", ["What", "When", "Why", "How"], 2, "ถามเหตุผล (Because...) ใช้ Why"),
+    E.q("qword", "medium", "___ do you get to school?  (Answer: I walk.)", ["Who", "What", "Where", "How"], 3, "ถามวิธีการ/พาหนะ ใช้ How"),
+    E.q("qword", "easy", "___ is your favorite teacher?  (Answer: Mrs. Brown.)", ["Who", "What", "Where", "When"], 0, "ถามถึงคน ใช้ Who"),
+
+    E.q("reading", "medium", "อ่าน: 'There is a big mango tree behind the house. Nok climbs the tree and picks ripe mangoes.'  Who climbs the tree?", ["Nok", "the father", "the teacher", "the dog"], 0, "จากเรื่อง Nok เป็นคนปีนต้นไม้ (Nok climbs the tree)"),
+    E.q("reading", "medium", "อ่าน: 'Nok climbs the mango tree and picks ripe mangoes.'  What does Nok pick?", ["flowers", "ripe mangoes", "apples", "leaves"], 1, "Nok เก็บมะม่วงสุก (ripe mangoes)"),
+    E.q("reading", "medium", "อ่าน: 'On a hot afternoon, an ice cream truck stops near the school. Kids run out with coins.'  Where does the truck stop?", ["near the school", "at the beach", "in the forest", "at home"], 0, "รถไอศกรีมจอดใกล้โรงเรียน (near the school)"),
+    E.q("reading", "hard", "อ่าน: 'Kids run out with coins to buy sweet ice cream.'  Why do the kids have coins?", ["to play games", "to buy ice cream", "to go home", "to read books"], 1, "เด็ก ๆ ถือเหรียญไว้เพื่อซื้อไอศกรีม (to buy ice cream)")
+  ];
+
+  /* ================= CHINESE (บทที่ 10–11) ================= */
+  var C = makeQ("chinese");
+  var CHINESE = [
+    C.q("pinyin", "easy", "「大」 อ่านออกเสียงว่าอย่างไร?", ["dā", "dá", "dǎ", "dà"], 3, "「大」(ใหญ่) อ่านว่า dà เสียงตก (วรรณยุกต์ที่ 4)"),
+    C.q("pinyin", "medium", "「长」(ยาว) อ่านว่าอย่างไร?", ["chàng", "cháng", "chǎng", "chāng"], 1, "「长」ที่แปลว่า 'ยาว' อ่านว่า cháng (เสียงขึ้น)"),
+    C.q("pinyin", "medium", "「胖」(อ้วน) อ่านว่าอย่างไร?", ["pǎng", "páng", "pàng", "pāng"], 2, "「胖」(อ้วน) อ่านว่า pàng เสียงตก"),
+    C.q("pinyin", "easy", "「高」(สูง) อ่านว่าอย่างไร?", ["gáo", "gǎo", "gào", "gāo"], 3, "「高」(สูง) อ่านว่า gāo เสียงราบ (วรรณยุกต์ที่ 1)"),
+    C.q("pinyin", "medium", "「很」(มาก) อ่านว่าอย่างไร?", ["hēn", "hén", "hěn", "hèn"], 2, "「很」(มาก) อ่านว่า hěn เสียงเอก-โท (วรรณยุกต์ที่ 3)"),
+    C.q("pinyin", "easy", "「鱼」(ปลา) อ่านว่าอย่างไร?", ["yú", "yù", "yǔ", "yū"], 0, "「鱼」(ปลา) อ่านว่า yú เสียงขึ้น"),
+    C.q("pinyin", "medium", "「姐姐」(พี่สาว) อ่านว่าอย่างไร?", ["jiě jie", "jiē jié", "jiè jiè", "jié jie"], 0, "「姐姐」อ่านว่า jiě jie (คำที่สองออกเสียงเบา)"),
+    C.q("pinyin", "hard", "「眼睛」(ตา) อ่านว่าอย่างไร?", ["tóu fa", "yǎn jing", "zuǐ ba", "bí zi"], 1, "「眼睛」(ตา) อ่านว่า yǎn jing"),
+    C.q("pinyin", "hard", "「鼻子」(จมูก) อ่านว่าอย่างไร?", ["bí zi", "qún zi", "bì zi", "kù zi"], 0, "「鼻子」(จมูก) อ่านว่า bí zi"),
+
+    C.q("vocab", "easy", "「我」 แปลว่าอะไร?", ["ฉัน", "เขา (ผู้หญิง)", "พี่สาว", "เพื่อน"], 0, "「我」(wǒ) แปลว่า ฉัน"),
+    C.q("vocab", "easy", "「她」 แปลว่าอะไร?", ["ฉัน", "เขา (ผู้หญิง)", "พี่ชาย", "คุณ"], 1, "「她」(tā) แปลว่า เขา (ผู้หญิง)"),
+    C.q("vocab", "easy", "「姐姐」 แปลว่าอะไร?", ["น้องสาว", "พี่สาว", "แม่", "ป้า"], 1, "「姐姐」(jiějie) แปลว่า พี่สาว"),
+    C.q("vocab", "easy", "「大」 แปลว่าอะไร?", ["เล็ก", "ใหญ่", "สูง", "ยาว"], 1, "「大」(dà) แปลว่า ใหญ่"),
+    C.q("vocab", "easy", "「小」 แปลว่าอะไร?", ["ใหญ่", "เล็ก", "สูง", "อ้วน"], 1, "「小」(xiǎo) แปลว่า เล็ก"),
+    C.q("vocab", "easy", "「高」 แปลว่าอะไร?", ["เตี้ย", "สูง", "ผอม", "ยาว"], 1, "「高」(gāo) แปลว่า สูง"),
+    C.q("vocab", "medium", "「瘦」 แปลว่าอะไร?", ["อ้วน", "ผอม", "สูง", "ใหญ่"], 1, "「瘦」(shòu) แปลว่า ผอม"),
+    C.q("vocab", "medium", "「很」 แปลว่าอะไร?", ["และ", "มาก", "ไม่", "มี"], 1, "「很」(hěn) แปลว่า มาก"),
+    C.q("vocab", "medium", "「和」 แปลว่าอะไร?", ["และ", "หรือ", "ไม่", "แต่"], 0, "「和」(hé) แปลว่า และ"),
+    C.q("vocab", "medium", "คำว่า 'บ้าน' ภาษาจีนคือตัวใด?", ["家", "里", "马", "鱼"], 0, "'บ้าน' คือ 家 (jiā)"),
+    C.q("vocab", "medium", "คำว่า 'ไม่' ภาษาจีนคือตัวใด?", ["很", "不", "和", "有"], 1, "'ไม่' คือ 不 (bù)"),
+
+    C.q("animals", "easy", "「狗」 แปลว่าอะไร?", ["แมว", "หมา", "ม้า", "ปลา"], 1, "「狗」(gǒu) แปลว่า หมา"),
+    C.q("animals", "easy", "「猫」 แปลว่าอะไร?", ["หมา", "แมว", "ม้า", "นก"], 1, "「猫」(māo) แปลว่า แมว"),
+    C.q("animals", "easy", "「马」 แปลว่าอะไร?", ["ม้า", "วัว", "หมา", "ปลา"], 0, "「马」(mǎ) แปลว่า ม้า"),
+    C.q("animals", "easy", "「鱼」 แปลว่าอะไร?", ["ปลา", "กุ้ง", "ปู", "นก"], 0, "「鱼」(yú) แปลว่า ปลา"),
+    C.q("animals", "medium", "「动物」 แปลว่าอะไร?", ["สัตว์เลี้ยง", "สัตว์", "สัตว์ป่า", "พืช"], 1, "「动物」(dòngwù) แปลว่า สัตว์"),
+    C.q("animals", "medium", "「宠物」 แปลว่าอะไร?", ["สัตว์", "สัตว์เลี้ยง", "สัตว์ป่า", "อาหารสัตว์"], 1, "「宠物」(chǒngwù) แปลว่า สัตว์เลี้ยง"),
+
+    C.q("body", "easy", "「头」 แปลว่าอะไร?", ["มือ", "หัว", "เท้า", "ตา"], 1, "「头」(tóu) แปลว่า หัว"),
+    C.q("body", "medium", "「头发」 แปลว่าอะไร?", ["หู", "ผม", "คิ้ว", "หนวด"], 1, "「头发」(tóufa) แปลว่า ผม"),
+    C.q("body", "easy", "「眼睛」 แปลว่าอะไร?", ["หู", "ตา", "จมูก", "ปาก"], 1, "「眼睛」(yǎnjing) แปลว่า ตา"),
+    C.q("body", "easy", "「鼻子」 แปลว่าอะไร?", ["ตา", "จมูก", "ปาก", "หู"], 1, "「鼻子」(bízi) แปลว่า จมูก"),
+    C.q("body", "easy", "「嘴巴」 แปลว่าอะไร?", ["ตา", "จมูก", "ปาก", "ฟัน"], 2, "「嘴巴」(zuǐba) แปลว่า ปาก"),
+
+    C.q("sentence", "medium", "เติมคำ: 姐姐不胖不 __ 。 (พี่สาวไม่อ้วนไม่___)", ["高", "大", "瘦", "长"], 2, "不胖不瘦 = ไม่อ้วนไม่ผอม จึงเติม 瘦 (ผอม)"),
+    C.q("sentence", "medium", "เติมคำ: 你 __ 里养宠物吗? (ที่___ของคุณเลี้ยงสัตว์เลี้ยงไหม)", ["马", "家", "很", "小"], 1, "家里 = ในบ้าน จึงเติม 家 (บ้าน)"),
+    C.q("sentence", "medium", "เติมคำ: 我和姐姐都有长 __ 。 (ฉันและพี่สาวมี___ยาว)", ["头发", "眼睛", "鼻子", "嘴巴"], 0, "长头发 = ผมยาว จึงเติม 头发 (ผม)"),
+    C.q("sentence", "medium", "เติมคำ: 我 __ 喜欢动物。 (ฉัน___ชอบสัตว์)", ["和", "养", "很", "里"], 2, "很喜欢 = ชอบมาก จึงเติม 很 (มาก)"),
+    C.q("sentence", "hard", "เติมคำ: 我养了五条 __ 。 (ฉันเลี้ยง___ห้าตัว)", ["家", "里", "鱼", "马"], 2, "ลักษณนาม 条 ใช้นับปลา จึงเติม 鱼 (ปลา) → 五条鱼"),
+    C.q("sentence", "medium", "「我有一个姐姐。」 แปลว่าอะไร?", ["ฉันมีพี่สาวหนึ่งคน", "ฉันมีน้องสาวหนึ่งคน", "ฉันรักพี่สาว", "พี่สาวมีฉัน"], 0, "我(ฉัน) 有(มี) 一个(หนึ่ง) 姐姐(พี่สาว) = ฉันมีพี่สาวหนึ่งคน"),
+    C.q("sentence", "hard", "「她不胖不瘦。」 แปลว่าอะไร?", ["เขาทั้งอ้วนทั้งผอม", "เขาไม่อ้วนไม่ผอม", "เขาอ้วนมาก", "เขาผอมมาก"], 1, "不胖(ไม่อ้วน) 不瘦(ไม่ผอม) = เขาไม่อ้วนไม่ผอม"),
+
+    C.q("parts", "hard", "ตัวอักษร 「胖」 ประกอบด้วยส่วนใดสองส่วน?", ["月 + 半", "女 + 也", "禾 + 口", "牛 + 勿"], 0, "胖 = 月 + 半"),
+    C.q("parts", "hard", "ตัวอักษร 「她」 ประกอบด้วยส่วนใดสองส่วน?", ["女 + 也", "月 + 半", "彳 + 艮", "宀 + 豕"], 0, "她 = 女 + 也")
+  ];
+
+  var POOLS = { science: SCIENCE, social: SOCIAL, history: HISTORY, english: ENGLISH, chinese: CHINESE };
+
+  /* ---------- Pre-exam review (ทบทวนก่อนสอบ) ---------- */
+  var REVIEW = {
+    science: [
+      { icon: "⭐", label: "จำให้ได้", text: "ปัจจัยการดำรงชีวิตมี 3 อย่าง คือ น้ำ อาหาร อากาศ ขาดอย่างใดไม่ได้" },
+      { icon: "🧠", label: "จำง่าย ๆ", text: "อาหาร 5 หมู่: (1)โปรตีน=เนื้อ ไข่ นม ถั่ว (2)คาร์โบไฮเดรต=ข้าว แป้ง น้ำตาล (3)เกลือแร่=ผัก (4)วิตามิน=ผลไม้ (5)ไขมัน=น้ำมัน" },
+      { icon: "💡", label: "เคล็ดลับ", text: "หมู่ 1 สร้าง+ซ่อมแซมร่างกาย · หมู่ 2 และ 5 ให้พลังงาน · หมู่ 3–4 สร้างภูมิคุ้มกัน" },
+      { icon: "⚠️", label: "ระวัง", text: "เนื้อ ไข่ นม ถั่ว = โปรตีน (ไม่ใช่คาร์โบไฮเดรต!)" },
+      { icon: "🧠", label: "วัสดุ", text: "ไม้ · แก้ว(ใส เปราะ) · พลาสติก(เบา) · โลหะ(แข็ง นำไฟฟ้า เกิดสนิม) · กระดาษ(ดูดซับน้ำ) · ยาง(ยืดหยุ่น)" },
+      { icon: "⭐", label: "การเปลี่ยนสถานะ", text: "ได้ความร้อน → ละลาย (ของแข็ง→ของเหลว) · ได้ความเย็น → แข็งตัว (ของเหลว→ของแข็ง)" },
+      { icon: "🧠", label: "สัตว์", text: "ปลาหายใจด้วยเหงือก · สัตว์บกหายใจทางจมูก · สัตว์กินพืช(วัว ม้า) กินเนื้อ(เสือ งู)" }
+    ],
+    social: [
+      { icon: "⭐", label: "พระไตรปิฎก", text: "ไตร=สาม · ปิฎก=ตะกร้า/คัมภีร์ · มี 3 ส่วน: พระวินัยปิฎก(ศีลพระ) พระสุตตันตปิฎก(เรื่องเล่า/ชาดก) พระอภิธรรมปิฎก(ธรรมเชิงลึก)" },
+      { icon: "🧠", label: "โอวาท 3", text: "หัวใจพระพุทธศาสนา = ละเว้นความชั่ว · ทำความดี · ทำจิตใจให้บริสุทธิ์" },
+      { icon: "💡", label: "ฆราวาสธรรม 4", text: "หลักครองเรือน = สัจจะ · ทมะ(ข่มใจ) · ขันติ(อดทน) · จาคะ(เสียสละ)" },
+      { icon: "⭐", label: "สุภาษิต", text: "'ททมาโน ปิโย โหติ' = ผู้ให้ย่อมเป็นที่รัก" },
+      { icon: "🧠", label: "สีในแผนที่", text: "ที่ราบ=เขียว · ภูเขา=น้ำตาล · ทะเล=ฟ้า" },
+      { icon: "💡", label: "เครื่องมือ", text: "เข็มทิศ=บอกทิศ(8 ทิศ) · แผนที่=พื้นที่กว้าง · แผนผัง=พื้นที่เล็ก(ห้องเรียน) · ภาพถ่ายทางอากาศ=ถ่ายจากเครื่องบิน" }
+    ],
+    history: [
+      { icon: "⭐", label: "2 ปัจจัย", text: "ภูมิศาสตร์ = ธรรมชาติ (ภูมิประเทศ อากาศ ทรัพยากร แหล่งน้ำ) · สังคม = มนุษย์สร้าง (เทคโนโลยี คมนาคม กฎหมาย)" },
+      { icon: "🧠", label: "ตั้งถิ่นฐาน", text: "คนโบราณอยู่ที่ราบลุ่มริมน้ำ เพราะดินดี เพาะปลูกได้ดี ใช้น้ำ และเดินทางสะดวก" },
+      { icon: "💡", label: "อาหาร 4 ภาค", text: "เหนือ=ข้าวซอย ไส้อั่ว · อีสาน=ลาบ ส้มตำ · กลาง=แกงเขียวหวาน · ใต้=แกงไตปลา คั่วกลิ้ง" },
+      { icon: "🧠", label: "ประเพณีขอฝน", text: "บุญบั้งไฟ และ แห่นางแมว (ภาคอีสาน) จัดขึ้นเพื่อขอฝน" },
+      { icon: "⭐", label: "ประเพณีเด่น", text: "ผีตาโขน(อีสาน) · ตักบาตรดอกไม้(กลาง-สระบุรี) · ชักพระ(ใต้) · กินเจ(ไทยเชื้อสายจีน)" }
+    ],
+    english: [
+      { icon: "⭐", label: "Vehicles", text: "bike จักรยาน · truck รถบรรทุก · train รถไฟ · sky train รถไฟฟ้า · ship เรือ · helicopter เฮลิคอปเตอร์" },
+      { icon: "🧠", label: "Places", text: "library ห้องสมุด · store ร้านค้า · playground สนามเด็กเล่น · city เมืองใหญ่ · town เมืองเล็ก" },
+      { icon: "💡", label: "Present Simple", text: "ประธานเอกพจน์ (he/she/it) เติม -s · ลงท้าย -ch/-sh/-s/-x เติม -es (teach→teaches, brush→brushes)" },
+      { icon: "⚠️", label: "ระวัง", text: "They/We/I ใช้กริยารูปปกติ (ไม่เติม -s): They cook. · แต่ He cooks." },
+      { icon: "🧠", label: "Question Words", text: "Who ใคร · What อะไร · When เมื่อไร · Where ที่ไหน · Why ทำไม · How อย่างไร · Whose ของใคร" }
+    ],
+    chinese: [
+      { icon: "⭐", label: "คำที่ต้องจำ", text: "我 ฉัน · 她 เขา(ผู้หญิง) · 姐姐 พี่สาว · 家 บ้าน · 和 และ · 不 ไม่ · 有 มี · 很 มาก" },
+      { icon: "🧠", label: "คำตรงข้าม", text: "大 ใหญ่ ↔ 小 เล็ก · 胖 อ้วน ↔ 瘦 ผอม · 高 สูง · 长 ยาว" },
+      { icon: "🐶", label: "สัตว์", text: "狗 หมา · 猫 แมว · 马 ม้า · 鱼 ปลา · 动物 สัตว์ · 宠物 สัตว์เลี้ยง" },
+      { icon: "👀", label: "ร่างกาย", text: "头 หัว · 头发 ผม · 眼睛 ตา · 鼻子 จมูก · 嘴巴 ปาก" },
+      { icon: "💡", label: "เคล็ดลับพินอิน", text: "วรรณยุกต์สำคัญมาก! 大 dà · 高 gāo · 鱼 yú · 很 hěn · 胖 pàng · 长 cháng" },
+      { icon: "⚠️", label: "ลักษณนาม", text: "นับปลาใช้ 条 → 我养了五条鱼 = ฉันเลี้ยงปลา 5 ตัว" },
+      { icon: "🧠", label: "ประโยคน่ารู้", text: "我很喜欢动物。= ฉันชอบสัตว์มาก · 她不胖不瘦。= เขาไม่อ้วนไม่ผอม" }
+    ]
+  };
+
+  /* ---------- Exam blueprints (how many per exam size) ---------- */
+  var EXAM_SETS = [
+    { id: 1, count: 10, label: "ชุดที่ 1", desc: "10 ข้อ · ประมาณ 8 นาที", mins: 8 },
+    { id: 2, count: 20, label: "ชุดที่ 2", desc: "20 ข้อ · ประมาณ 15 นาที", mins: 15 },
+    { id: 3, count: 0, label: "ชุดใหญ่", desc: "ทุกข้อในคลัง · จับเวลาเอง", mins: 25 }
+  ];
+
+  var DIFF_META = {
+    easy: { label: "ง่าย", stars: "⭐" },
+    medium: { label: "ปานกลาง", stars: "⭐⭐" },
+    hard: { label: "ยาก", stars: "⭐⭐⭐" }
+  };
+
+  /* ============================================================
+     ENGINE:  randomization, blueprint sampling, scoring
+     ============================================================ */
+  function shuffle(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  // Build a mock exam that covers every topic, then fills to `count`.
+  function buildExam(subject, count) {
+    var pool = POOLS[subject];
+    var total = count && count > 0 ? Math.min(count, pool.length) : pool.length;
+
+    // group by topic
+    var byTopic = {};
+    pool.forEach(function (q) { (byTopic[q.topic] = byTopic[q.topic] || []).push(q); });
+    var topics = Object.keys(byTopic);
+
+    var picked = [];
+    var usedIds = {};
+
+    // 1) at least one from each topic (round-robin) so nothing disappears
+    var shuffledByTopic = {};
+    topics.forEach(function (t) { shuffledByTopic[t] = shuffle(byTopic[t]); });
+    var round = 0, added = true;
+    while (picked.length < total && added) {
+      added = false;
+      for (var i = 0; i < topics.length && picked.length < total; i++) {
+        var list = shuffledByTopic[topics[i]];
+        if (list[round]) {
+          var q = list[round];
+          if (!usedIds[q.id]) { usedIds[q.id] = 1; picked.push(q); added = true; }
+        }
+      }
+      round++;
+    }
+
+    // 2) shuffle order, then prepare display (shuffle MC choices)
+    var exam = shuffle(picked).slice(0, total).map(function (q) {
+      var display;
+      if (q.type === "tf") {
+        display = { choices: q.choices.slice(), correct: q.answer };
+      } else {
+        var idx = q.choices.map(function (_, i) { return i; });
+        var order = shuffle(idx);
+        display = {
+          choices: order.map(function (i) { return q.choices[i]; }),
+          correct: order.indexOf(q.answer)
+        };
+      }
+      return {
+        ref: q, id: q.id, topic: q.topic, difficulty: q.difficulty, type: q.type,
+        question: q.question, explanation: q.explanation,
+        choices: display.choices, correct: display.correct
+      };
+    });
+    return exam;
+  }
+
+  function grade(exam, answers) {
+    var correct = 0, wrong = 0, wrongTopics = {};
+    exam.forEach(function (item, i) {
+      var a = answers[i];
+      if (a === item.correct) correct++;
+      else {
+        wrong++;
+        wrongTopics[item.topic] = (wrongTopics[item.topic] || 0) + 1;
+      }
+    });
+    var total = exam.length;
+    return {
+      correct: correct, wrong: wrong, total: total,
+      percentage: total ? Math.round((correct / total) * 100) : 0,
+      wrongTopics: wrongTopics
+    };
+  }
+
+  function levelFor(pct) {
+    if (pct >= 90) return { emoji: "🌟", title: "ยอดเยี่ยม!", msg: "เก่งมากเลย เพอร์เฟกต์สุด ๆ", cls: "lv-star" };
+    if (pct >= 70) return { emoji: "😊", title: "ดีมาก!", msg: "ทำได้ดีมาก อีกนิดเดียวก็เต็ม", cls: "lv-good" };
+    if (pct >= 50) return { emoji: "👍", title: "พยายามอีกนิด", msg: "มาถูกทางแล้ว ลองทบทวนอีกหน่อยนะ", cls: "lv-ok" };
+    return { emoji: "💪", title: "ลองทบทวนอีกครั้งนะ", msg: "ไม่เป็นไรเลย ทบทวนแล้วลองใหม่ เก่งขึ้นแน่นอน", cls: "lv-try" };
+  }
+
+  /* ---------- LocalStorage (exam history) ---------- */
+  var LS_KEY = "p3exam_history_v1";
+  function loadHistory() {
+    try { return JSON.parse(localStorage.getItem(LS_KEY)) || []; }
+    catch (e) { return []; }
+  }
+  function saveResult(rec) {
+    var h = loadHistory();
+    h.unshift(rec);
+    if (h.length > 60) h = h.slice(0, 60);
+    try { localStorage.setItem(LS_KEY, JSON.stringify(h)); } catch (e) {}
+  }
+  function lastResultFor(subject) {
+    var h = loadHistory();
+    for (var i = 0; i < h.length; i++) if (h[i].subject === subject) return h[i];
+    return null;
+  }
+  function fmtDate(iso) {
+    try {
+      var d = new Date(iso);
+      var months = ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."];
+      return d.getDate() + " " + months[d.getMonth()] + " " + (d.getFullYear() + 543 - 2500 < 100 ? (d.getFullYear() + 543) : (d.getFullYear() + 543)) +
+        " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
+    } catch (e) { return ""; }
+  }
+
+  /* ============================================================
+     APP STATE + ROUTER
+     ============================================================ */
+  var state = {
+    screen: "home",
+    subject: null,
+    setId: null,
+    exam: [],
+    answers: [],
+    index: 0,
+    retryWrongOnly: false
+  };
+  var root = document.getElementById("app");
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+  function setVar(subject) {
+    document.documentElement.style.setProperty("--subject", SUBJECTS[subject] ? SUBJECTS[subject].color : "#4C6EF5");
+  }
+  function go(screen) { state.screen = screen; window.scrollTo(0, 0); render(); }
+
+  /* ---------- HOME ---------- */
+  function renderHome() {
+    setVar(null);
+    var cards = SUBJECT_ORDER.map(function (key) {
+      var s = SUBJECTS[key];
+      var pool = POOLS[key];
+      var topicCount = Object.keys(s.topics).length;
+      var last = lastResultFor(key);
+      var lastHtml = last
+        ? '<div class="mini-last">ล่าสุด <b>' + last.correct + "/" + last.total + "</b> · " + last.percentage + "%</div>"
+        : '<div class="mini-last muted">ยังไม่เคยทำ</div>';
+      return (
+        '<button class="subject-card" style="--subject:' + s.color + '" data-nav="subject" data-subject="' + key + '">' +
+          '<div class="sc-emoji">' + s.emoji + "</div>" +
+          '<div class="sc-body">' +
+            '<div class="sc-name">' + s.name + "</div>" +
+            '<div class="sc-meta">' + pool.length + " ข้อในคลัง · " + topicCount + " เรื่อง</div>" +
+            lastHtml +
+          "</div>" +
+          '<div class="sc-go">เริ่มทำข้อสอบ ▸</div>' +
+        "</button>"
+      );
+    }).join("");
+
+    var flashChips = SUBJECT_ORDER.map(function (key) {
+      var s = SUBJECTS[key];
+      return '<button class="chip" style="--subject:' + s.color + '" data-nav="flash" data-subject="' + key + '">' + s.emoji + " " + s.short + "</button>";
+    }).join("");
+
+    root.innerHTML =
+      '<header class="home-hero">' +
+        '<div class="hero-badge">ป.3 · เทอม 1</div>' +
+        '<h1 class="hero-title">สนามสอบ ป.3</h1>' +
+        '<p class="hero-sub">ทบทวนเร็ว ✏️ ทำข้อสอบ 🎯 ดูคะแนน 💡 แล้วลองใหม่ให้เก่งขึ้น!</p>' +
+      "</header>" +
+      '<section class="panel flash-panel">' +
+        '<div class="panel-head"><span class="ph-emoji">⏱️</span><div><div class="panel-title">ทบทวนเร็ว 5 นาที</div><div class="panel-desc">อ่านสรุปสั้น ๆ ก่อนลุยข้อสอบ</div></div></div>' +
+        '<div class="chip-row">' + flashChips + "</div>" +
+      "</section>" +
+      '<section><h2 class="section-title">เลือกวิชา</h2><div class="subject-grid">' + cards + "</div></section>" +
+      renderRecentPanel() +
+      '<footer class="foot">ทำแล้วทำอีกได้ไม่จำกัด · คะแนนเก็บไว้ในเครื่องนี้เท่านั้น 💾</footer>';
+  }
+
+  function renderRecentPanel() {
+    var h = loadHistory().slice(0, 4);
+    if (!h.length) return "";
+    var rows = h.map(function (r) {
+      var s = SUBJECTS[r.subject];
+      var lv = levelFor(r.percentage);
+      return (
+        '<div class="recent-row">' +
+          '<span class="rr-emoji" style="--subject:' + s.color + '">' + s.emoji + "</span>" +
+          '<div class="rr-main"><div class="rr-name">' + s.name + "</div><div class=\"rr-date\">" + fmtDate(r.date) + "</div></div>" +
+          '<div class="rr-score"><b>' + r.correct + "/" + r.total + "</b><span>" + lv.emoji + " " + r.percentage + "%</span></div>" +
+        "</div>"
+      );
+    }).join("");
+    return '<section class="panel"><div class="panel-head"><span class="ph-emoji">📈</span><div><div class="panel-title">ทำข้อสอบล่าสุด</div><div class="panel-desc">ผลการทำที่ผ่านมา</div></div></div>' + rows + "</section>";
+  }
+
+  /* ---------- SUBJECT (choose set) ---------- */
+  function renderSubject() {
+    var key = state.subject, s = SUBJECTS[key];
+    setVar(key);
+    var last = lastResultFor(key);
+    var lastPanel = last
+      ? '<div class="last-pill"><span>คะแนนล่าสุด</span><b>' + last.correct + "/" + last.total + " · " + last.percentage + "%</b><i>" + fmtDate(last.date) + "</i></div>"
+      : "";
+    var sets = EXAM_SETS.map(function (set) {
+      var n = set.count === 0 ? POOLS[key].length : Math.min(set.count, POOLS[key].length);
+      return (
+        '<div class="set-card">' +
+          '<div class="set-info"><div class="set-label">' + set.label + "</div><div class=\"set-desc\">" + n + " ข้อ · ~" + set.mins + " นาที</div></div>" +
+          '<button class="btn btn-primary" data-nav="start" data-subject="' + key + '" data-set="' + set.id + '">เริ่มทำ ▸</button>' +
+        "</div>"
+      );
+    }).join("");
+
+    root.innerHTML =
+      topBar("🏠 หน้าแรก", "home") +
+      '<header class="subj-hero" style="--subject:' + s.color + '">' +
+        '<div class="subj-emoji">' + s.emoji + "</div>" +
+        '<div><h1 class="subj-title">' + s.name + "</h1><div class=\"subj-topics\">" + Object.keys(s.topics).map(function (t) { return s.topics[t]; }).join(" · ") + "</div></div>" +
+      "</header>" +
+      lastPanel +
+      '<div class="two-btn">' +
+        '<button class="btn btn-soft" data-nav="review" data-subject="' + key + '">📖 ทบทวนก่อนสอบ</button>' +
+        '<button class="btn btn-soft" data-nav="flash" data-subject="' + key + '">⏱️ ทบทวนเร็ว 5 นาที</button>' +
+      "</div>" +
+      '<h2 class="section-title">เลือกชุดข้อสอบ</h2>' +
+      '<div class="set-list">' + sets + "</div>";
+  }
+
+  /* ---------- REVIEW (pre-exam summary) ---------- */
+  function renderReview() {
+    var key = state.subject, s = SUBJECTS[key];
+    setVar(key);
+    var items = REVIEW[key].map(function (r) {
+      return (
+        '<div class="rev-card">' +
+          '<div class="rev-tag"><span>' + r.icon + "</span>" + esc(r.label) + "</div>" +
+          '<div class="rev-text">' + esc(r.text) + "</div>" +
+        "</div>"
+      );
+    }).join("");
+    root.innerHTML =
+      topBar("◂ กลับ", "subject") +
+      '<header class="subj-hero small" style="--subject:' + s.color + '"><div class="subj-emoji">📖</div><div><h1 class="subj-title">ทบทวนก่อนสอบ</h1><div class="subj-topics">' + s.name + "</div></div></header>" +
+      '<div class="rev-list">' + items + "</div>" +
+      '<div class="sticky-cta"><button class="btn btn-primary big" data-nav="start" data-subject="' + key + '" data-set="1">พร้อมแล้ว! เริ่มทำข้อสอบ ▸</button></div>';
+  }
+
+  /* ---------- FLASH (5-min quick review, one card at a time) ---------- */
+  function renderFlash() {
+    var key = state.subject, s = SUBJECTS[key];
+    setVar(key);
+    var cards = REVIEW[key];
+    var i = Math.min(state.flashIndex || 0, cards.length - 1);
+    state.flashIndex = i;
+    var r = cards[i];
+    var isLast = i === cards.length - 1;
+    root.innerHTML =
+      topBar("◂ กลับ", "subject") +
+      '<header class="subj-hero small" style="--subject:' + s.color + '"><div class="subj-emoji">⏱️</div><div><h1 class="subj-title">ทบทวนเร็ว 5 นาที</h1><div class="subj-topics">' + s.name + " · การ์ด " + (i + 1) + "/" + cards.length + "</div></div></header>" +
+      '<div class="flash-card" style="--subject:' + s.color + '">' +
+        '<div class="flash-icon">' + r.icon + "</div>" +
+        '<div class="flash-label">' + esc(r.label) + "</div>" +
+        '<div class="flash-body">' + esc(r.text) + "</div>" +
+      "</div>" +
+      '<div class="flash-dots">' + cards.map(function (_, k) { return '<span class="dot' + (k === i ? " on" : "") + '"></span>'; }).join("") + "</div>" +
+      '<div class="two-btn">' +
+        (i > 0 ? '<button class="btn btn-soft" data-flash="prev">◂ ก่อนหน้า</button>' : '<button class="btn btn-soft" disabled>◂ ก่อนหน้า</button>') +
+        (isLast
+          ? '<button class="btn btn-primary" data-nav="start" data-subject="' + key + '" data-set="1">✏️ ลองทำข้อสอบ</button>'
+          : '<button class="btn btn-primary" data-flash="next">ถัดไป ▸</button>') +
+      "</div>";
+  }
+
+  /* ---------- EXAM ---------- */
+  function startExam(subject, setId, wrongOnly) {
+    state.subject = subject;
+    state.setId = setId;
+    state.retryWrongOnly = !!wrongOnly;
+    if (!wrongOnly) {
+      var set = EXAM_SETS.filter(function (x) { return x.id === setId; })[0] || EXAM_SETS[0];
+      state.exam = buildExam(subject, set.count);
+    }
+    state.answers = state.exam.map(function () { return null; });
+    state.index = 0;
+    go("exam");
+  }
+
+  function renderExam() {
+    var key = state.subject, s = SUBJECTS[key];
+    setVar(key);
+    var i = state.index, item = state.exam[i], total = state.exam.length;
+    var pct = Math.round(((i) / total) * 100);
+    var answered = state.answers[i];
+    var dm = DIFF_META[item.difficulty];
+
+    var choices = item.choices.map(function (c, ci) {
+      var sel = answered === ci ? " selected" : "";
+      var letter = item.type === "tf" ? (ci === 0 ? "✓" : "✕") : String.fromCharCode(65 + ci);
+      return (
+        '<button class="choice' + sel + (item.type === "tf" ? " tf" : "") + '" data-choose="' + ci + '">' +
+          '<span class="ch-letter">' + letter + "</span>" +
+          '<span class="ch-text">' + esc(c) + "</span>" +
+        "</button>"
+      );
+    }).join("");
+
+    var isLast = i === total - 1;
+    var answeredCount = state.answers.filter(function (a) { return a !== null; }).length;
+
+    root.innerHTML =
+      '<div class="exam-top" style="--subject:' + s.color + '">' +
+        '<button class="exam-quit" data-exam="quit">✕</button>' +
+        '<div class="exam-meta"><span class="exam-subj">' + s.emoji + " " + s.short + "</span>" +
+          '<span class="exam-count">ข้อ ' + (i + 1) + " / " + total + "</span></div>" +
+        '<div class="progress"><div class="progress-fill" style="width:' + pct + '%"></div></div>' +
+      "</div>" +
+      '<div class="q-card">' +
+        '<div class="q-tags"><span class="q-topic">' + esc(SUBJECTS[key].topics[item.topic] || item.topic) + '</span><span class="q-diff" title="' + dm.label + '">' + dm.stars + "</span></div>" +
+        '<div class="q-text">' + esc(item.question) + "</div>" +
+        '<div class="choices">' + choices + "</div>" +
+      "</div>" +
+      '<div class="exam-nav">' +
+        (i > 0 ? '<button class="btn btn-soft" data-exam="prev">◂ ย้อนกลับ</button>' : '<span></span>') +
+        (isLast
+          ? '<button class="btn btn-primary" data-exam="submit">ส่งคำตอบ ✅</button>'
+          : '<button class="btn btn-primary" data-exam="next">ข้อถัดไป ▸</button>') +
+      "</div>" +
+      '<div class="exam-foot">ตอบแล้ว ' + answeredCount + " / " + total + " ข้อ · เปลี่ยนคำตอบได้ก่อนส่ง</div>";
+  }
+
+  function submitExam() {
+    var unanswered = state.answers.filter(function (a) { return a === null; }).length;
+    if (unanswered > 0) {
+      confirmModal(
+        "ยังเหลืออีก " + unanswered + " ข้อที่ยังไม่ได้ตอบ ต้องการส่งคำตอบเลยไหม? (ข้อที่ไม่ตอบจะถือว่ายังไม่ถูก)",
+        "ส่งเลย", doSubmit);
+      return;
+    }
+    doSubmit();
+  }
+
+  function doSubmit() {
+    var res = grade(state.exam, state.answers);
+    saveResult({
+      subject: state.subject, setId: state.setId,
+      correct: res.correct, total: res.total, percentage: res.percentage,
+      wrongTopics: Object.keys(res.wrongTopics), date: new Date().toISOString()
+    });
+    state.lastResult = res;
+    go("result");
+  }
+
+  /* ---------- RESULT ---------- */
+  function renderResult() {
+    var key = state.subject, s = SUBJECTS[key];
+    setVar(key);
+    var res = state.lastResult || grade(state.exam, state.answers);
+    var lv = levelFor(res.percentage);
+
+    // wrong topics analysis
+    var wt = res.wrongTopics;
+    var wtKeys = Object.keys(wt).sort(function (a, b) { return wt[b] - wt[a]; });
+    var wrongPanel = "";
+    if (wtKeys.length) {
+      var chips = wtKeys.map(function (t) {
+        return '<button class="wt-chip" data-review-topic="' + t + '">🧠 ' + esc(SUBJECTS[key].topics[t] || t) + " <i>" + wt[t] + " ข้อ</i></button>";
+      }).join("");
+      wrongPanel =
+        '<section class="panel"><div class="panel-head"><span class="ph-emoji">🧠</span><div><div class="panel-title">เรื่องที่ควรทบทวน</div><div class="panel-desc">แตะเพื่อดูสรุปสั้น ๆ แล้วลองทำข้อที่ผิดอีกครั้ง</div></div></div>' +
+        '<div class="wt-row">' + chips + "</div>" +
+        '<button class="btn btn-soft full" data-review-topic="__all">📖 ดูสรุปทบทวนทั้งหมด</button>' +
+        "</section>";
+    }
+
+    // per-question review
+    var reviewItems = state.exam.map(function (item, i) {
+      var a = state.answers[i];
+      var correct = a === item.correct;
+      var yourAns = a === null ? "— (ไม่ได้ตอบ)" : esc(item.choices[a]);
+      return (
+        '<div class="ans-card ' + (correct ? "ok" : "no") + '">' +
+          '<div class="ans-head"><span class="ans-no">ข้อ ' + (i + 1) + "</span>" +
+            '<span class="ans-badge">' + (correct ? "✅ ถูกต้อง" : "🔎 ลองทบทวน") + "</span></div>" +
+          '<div class="ans-q">' + esc(item.question) + "</div>" +
+          '<div class="ans-line correct"><b>✅ คำตอบที่ถูก:</b> ' + esc(item.choices[item.correct]) + "</div>" +
+          (correct ? "" : '<div class="ans-line yours"><b>📝 หนูตอบ:</b> ' + yourAns + "</div>") +
+          '<div class="ans-explain">💡 ' + esc(item.explanation) + "</div>" +
+        "</div>"
+      );
+    }).join("");
+
+    root.innerHTML =
+      '<div class="result-hero ' + lv.cls + '">' +
+        '<div class="rh-emoji">' + lv.emoji + "</div>" +
+        '<div class="rh-title">' + lv.title + "</div>" +
+        '<div class="rh-score"><b>' + res.correct + "</b><span>/ " + res.total + "</span></div>" +
+        '<div class="rh-pct">' + res.percentage + "%</div>" +
+        '<div class="rh-msg">' + lv.msg + "</div>" +
+        '<div class="rh-stat"><span class="st ok">ถูก ' + res.correct + " ข้อ</span><span class=\"st no\">ต้องทบทวน " + res.wrong + " ข้อ</span></div>" +
+      "</div>" +
+      wrongPanel +
+      '<div class="action-grid">' +
+        '<button class="btn btn-primary big" data-nav="retry">🔄 ทำใหม่อีกครั้ง</button>' +
+        (res.wrong > 0 ? '<button class="btn btn-soft" data-nav="retry-wrong">🎯 ทำเฉพาะข้อที่ผิด</button>' : "") +
+        '<button class="btn btn-soft" data-nav="review" data-subject="' + key + '">📚 ทบทวนก่อนทำใหม่</button>' +
+        '<button class="btn btn-soft" data-nav="home">🏠 กลับหน้าแรก</button>' +
+      "</div>" +
+      '<h2 class="section-title">เฉลยทุกข้อ</h2>' +
+      '<div class="ans-list">' + reviewItems + "</div>";
+  }
+
+  // Small modal to show a topic summary from the result screen
+  function showTopicReview(topicKey) {
+    var key = state.subject;
+    var cards = REVIEW[key];
+    var content;
+    if (topicKey === "__all") {
+      content = cards.map(function (r) { return '<div class="m-item"><b>' + r.icon + " " + esc(r.label) + "</b><p>" + esc(r.text) + "</p></div>"; }).join("");
+    } else {
+      // match review cards loosely to the topic by label/keyword; else show all
+      content = cards.map(function (r) { return '<div class="m-item"><b>' + r.icon + " " + esc(r.label) + "</b><p>" + esc(r.text) + "</p></div>"; }).join("");
+    }
+    var wrap = document.createElement("div");
+    wrap.className = "modal-wrap";
+    wrap.innerHTML =
+      '<div class="modal">' +
+        '<div class="modal-head"><span>📖 สรุปทบทวน · ' + esc(SUBJECTS[key].name) + '</span><button class="modal-x" data-modal="close">✕</button></div>' +
+        '<div class="modal-body">' + content + "</div>" +
+        '<div class="modal-foot">' +
+          '<button class="btn btn-primary" data-modal="retry-wrong">🎯 ลองทำข้อที่ผิดอีกครั้ง</button>' +
+          '<button class="btn btn-soft" data-modal="close">ปิด</button>' +
+        "</div>" +
+      "</div>";
+    document.body.appendChild(wrap);
+  }
+
+  function retryWrongOnly() {
+    var wrong = [];
+    state.exam.forEach(function (item, i) { if (state.answers[i] !== item.correct) wrong.push(item); });
+    if (!wrong.length) { go("home"); return; }
+    // rebuild fresh display (re-shuffle choices) from the original refs
+    state.exam = shuffle(wrong).map(function (item) {
+      var q = item.ref;
+      if (q.type === "tf") return { ref: q, id: q.id, topic: q.topic, difficulty: q.difficulty, type: q.type, question: q.question, explanation: q.explanation, choices: q.choices.slice(), correct: q.answer };
+      var order = shuffle(q.choices.map(function (_, i) { return i; }));
+      return { ref: q, id: q.id, topic: q.topic, difficulty: q.difficulty, type: q.type, question: q.question, explanation: q.explanation, choices: order.map(function (i) { return q.choices[i]; }), correct: order.indexOf(q.answer) };
+    });
+    state.answers = state.exam.map(function () { return null; });
+    state.index = 0;
+    state.retryWrongOnly = true;
+    go("exam");
+  }
+
+  /* ---------- custom confirm (window.confirm is blocked in sandboxed artifacts) ---------- */
+  function confirmModal(message, yesLabel, onYes) {
+    var wrap = document.createElement("div");
+    wrap.className = "modal-wrap";
+    wrap.innerHTML =
+      '<div class="modal confirm">' +
+        '<div class="confirm-body">' + esc(message) + "</div>" +
+        '<div class="modal-foot">' +
+          '<button class="btn btn-primary" data-confirm="yes">' + esc(yesLabel) + "</button>" +
+          '<button class="btn btn-soft" data-confirm="no">ยกเลิก</button>' +
+        "</div>" +
+      "</div>";
+    document.body.appendChild(wrap);
+    wrap.addEventListener("click", function (ev) {
+      var b = ev.target.closest("[data-confirm]");
+      if (!b) return;               // let backdrop clicks fall through to the global closer
+      var yes = b.getAttribute("data-confirm") === "yes";
+      if (wrap.parentNode) wrap.parentNode.removeChild(wrap);
+      if (yes && onYes) onYes();
+    });
+  }
+
+  /* ---------- top bar helper ---------- */
+  function topBar(label, target) {
+    return '<div class="topbar"><button class="back-btn" data-nav="' + target + '">' + esc(label) + "</button></div>";
+  }
+
+  /* ============================================================
+     RENDER SWITCH
+     ============================================================ */
+  function render() {
+    switch (state.screen) {
+      case "home": renderHome(); break;
+      case "subject": renderSubject(); break;
+      case "review": renderReview(); break;
+      case "flash": renderFlash(); break;
+      case "exam": renderExam(); break;
+      case "result": renderResult(); break;
+      default: renderHome();
+    }
+  }
+
+  /* ============================================================
+     EVENT DELEGATION
+     ============================================================ */
+  document.addEventListener("click", function (ev) {
+    var t = ev.target.closest("[data-nav],[data-choose],[data-exam],[data-flash],[data-review-topic],[data-modal]");
+    if (!t) return;
+
+    // navigation
+    if (t.hasAttribute("data-nav")) {
+      var nav = t.getAttribute("data-nav");
+      var subj = t.getAttribute("data-subject");
+      if (nav === "home") return go("home");
+      if (nav === "subject") { state.subject = subj; return go("subject"); }
+      if (nav === "review") { state.subject = subj; return go("review"); }
+      if (nav === "flash") { state.subject = subj; state.flashIndex = 0; return go("flash"); }
+      if (nav === "start") { return startExam(subj, parseInt(t.getAttribute("data-set"), 10) || 1, false); }
+      if (nav === "retry") { return startExam(state.subject, state.setId || 1, false); }
+      if (nav === "retry-wrong") { return retryWrongOnly(); }
+      return;
+    }
+
+    // choose an answer
+    if (t.hasAttribute("data-choose")) {
+      var ci = parseInt(t.getAttribute("data-choose"), 10);
+      state.answers[state.index] = ci;
+      // update selection without full re-render for snappiness
+      var box = t.parentNode;
+      Array.prototype.forEach.call(box.querySelectorAll(".choice"), function (c) { c.classList.remove("selected"); });
+      t.classList.add("selected");
+      // reflect answered-count line
+      var foot = document.querySelector(".exam-foot");
+      if (foot) {
+        var answeredCount = state.answers.filter(function (a) { return a !== null; }).length;
+        foot.textContent = "ตอบแล้ว " + answeredCount + " / " + state.exam.length + " ข้อ · เปลี่ยนคำตอบได้ก่อนส่ง";
+      }
+      return;
+    }
+
+    // exam nav
+    if (t.hasAttribute("data-exam")) {
+      var act = t.getAttribute("data-exam");
+      if (act === "next") { if (state.index < state.exam.length - 1) { state.index++; render(); } return; }
+      if (act === "prev") { if (state.index > 0) { state.index--; render(); } return; }
+      if (act === "submit") { return submitExam(); }
+      if (act === "quit") {
+        confirmModal("ออกจากข้อสอบ? คำตอบที่ทำอยู่จะหายไปนะ", "ออก", function () { go("home"); });
+        return;
+      }
+      return;
+    }
+
+    // flash nav
+    if (t.hasAttribute("data-flash")) {
+      var f = t.getAttribute("data-flash");
+      if (f === "next") { state.flashIndex = (state.flashIndex || 0) + 1; render(); }
+      if (f === "prev") { state.flashIndex = Math.max(0, (state.flashIndex || 0) - 1); render(); }
+      return;
+    }
+
+    // result -> topic review modal
+    if (t.hasAttribute("data-review-topic")) {
+      return showTopicReview(t.getAttribute("data-review-topic"));
+    }
+
+    // modal actions
+    if (t.hasAttribute("data-modal")) {
+      var m = t.getAttribute("data-modal");
+      var wrap = t.closest(".modal-wrap");
+      if (wrap) wrap.parentNode.removeChild(wrap);
+      if (m === "retry-wrong") retryWrongOnly();
+      return;
+    }
+  });
+
+  // close modal on backdrop click
+  document.addEventListener("click", function (ev) {
+    if (ev.target.classList && ev.target.classList.contains("modal-wrap")) {
+      ev.target.parentNode.removeChild(ev.target);
+    }
+  });
+
+  /* ---------- boot ---------- */
+  render();
+})();
+</script>
+</body>
+</html>

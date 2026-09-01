@@ -1,0 +1,4 @@
+# claude.ai artifact fragments (body-only, not standalone pages)
+artifact.html
+artifact_trace.html
+build/
