@@ -499,6 +499,9 @@
       "</section>" +
       '<section><h2 class="section-title">เลือกวิชา</h2><div class="subject-grid">' + cards + "</div></section>" +
       renderRecentPanel() +
+      '<div style="text-align:center;margin-top:24px">' +
+        '<a class="btn btn-soft" style="text-decoration:none" href="https://napasorn-kl.github.io/p3-final-exam/source.html" target="_blank" rel="noopener">🔎 ดูที่มาข้อสอบ</a>' +
+      '</div>' +
       '<footer class="foot">ทำแล้วทำอีกได้ไม่จำกัด · คะแนนเก็บไว้ในเครื่องนี้เท่านั้น 💾</footer>';
   }
 

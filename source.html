@@ -92,6 +92,12 @@ h1,h2,h3,.display{font-family:"Baloo Thai 2","Sarabun",var(--cjk),sans-serif;lin
 .empty{display:none;text-align:center;color:var(--muted);padding:40px 10px;font-weight:600}
 .foot{text-align:center;color:var(--muted);font-size:12.5px;margin-top:30px;font-weight:500;line-height:1.6}
 .hidden{display:none !important}
+.gohome{margin:4px 0 2px}
+.gobtn{display:inline-flex;align-items:center;gap:8px;font-family:"Baloo Thai 2","Sarabun",sans-serif;font-weight:700;
+  font-size:16px;background:var(--primary);color:#fff;text-decoration:none;border-radius:999px;padding:12px 26px;
+  box-shadow:0 5px 0 rgba(0,0,0,.10);transition:transform .08s}
+.gobtn:active{transform:translateY(2px)}
+.gobtn:focus-visible{outline:3px solid var(--primary);outline-offset:3px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style></head><body>
 <div class="wrap">
@@ -104,6 +110,7 @@ h1,h2,h3,.display{font-family:"Baloo Thai 2","Sarabun",var(--cjk),sans-serif;lin
       <div class="stat"><b id="statTotal">0</b><span>ข้อ</span></div>
       <div class="stat"><b>100%</b><span>ยืนยันครบ</span></div>
     </div>
+    <div class="gohome"><a class="gobtn" href="https://napasorn-kl.github.io/p3-final-exam/" target="_blank" rel="noopener">✏️ ไปทำข้อสอบ</a></div>
   </header>
 
   <div class="controls">
