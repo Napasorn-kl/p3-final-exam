@@ -850,11 +850,12 @@
     if (t.hasAttribute("data-nav")) {
       var nav = t.getAttribute("data-nav");
       var subj = t.getAttribute("data-subject");
+      if (subj) state.subject = subj;   // only switch subject when one is provided (back buttons omit it)
       if (nav === "home") return go("home");
-      if (nav === "subject") { state.subject = subj; return go("subject"); }
-      if (nav === "review") { state.subject = subj; return go("review"); }
-      if (nav === "flash") { state.subject = subj; state.flashIndex = 0; return go("flash"); }
-      if (nav === "start") { return startExam(subj, parseInt(t.getAttribute("data-set"), 10) || 1, false); }
+      if (nav === "subject") return go("subject");
+      if (nav === "review") return go("review");
+      if (nav === "flash") { state.flashIndex = 0; return go("flash"); }
+      if (nav === "start") { return startExam(state.subject, parseInt(t.getAttribute("data-set"), 10) || 1, false); }
       if (nav === "retry") { return startExam(state.subject, state.setId || 1, false); }
       if (nav === "retry-wrong") { return retryWrongOnly(); }
       return;
