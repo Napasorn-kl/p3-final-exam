@@ -265,30 +265,45 @@
 
   /* ---------- Picture illustrations (emoji) for picture-friendly questions ---------- */
   var IMG = {
-    // English — vehicles & places
+    // ---- Science ----
+    "science-1": "🌱", "science-2": "🌬️", "science-3": "🌬️", "science-4": "⏱️", "science-5": "🐟",
+    "science-6": "🐠", "science-7": "💧", "science-8": "💧", "science-9": "🏃", "science-10": "🌬️", "science-11": "🌳",
+    "science-12": "🍗", "science-13": "🍚", "science-14": "🧈", "science-15": "🍊", "science-16": "🥚", "science-17": "🥛",
+    "science-18": "⚡", "science-19": "🏃", "science-20": "🥦", "science-21": "🍟", "science-22": "🍖", "science-23": "🥬",
+    "science-24": "🥗", "science-25": "🍱", "science-26": "🍭",
+    "science-27": "🌿", "science-28": "🥩", "science-29": "🍽️", "science-30": "🐕",
+    "science-31": "🛞", "science-32": "🥃", "science-33": "📓", "science-34": "🔧", "science-35": "✏️", "science-36": "🪟",
+    "science-37": "🔩", "science-38": "💧", "science-39": "🥡", "science-40": "🪨",
+    "science-41": "🧊", "science-42": "🧊", "science-43": "🍦", "science-44": "💧", "science-45": "🌽", "science-46": "❄️", "science-47": "☕", "science-48": "🥇",
+    // ---- Social ----
+    "social-1": "📜", "social-2": "🧺", "social-3": "📚", "social-4": "📜", "social-5": "📖", "social-6": "🧘",
+    "social-7": "🧘", "social-8": "📖", "social-9": "❤️", "social-10": "🙏", "social-11": "🙏", "social-12": "✋",
+    "social-13": "🚫", "social-14": "🏠", "social-15": "👨‍👩‍👧", "social-16": "💪", "social-17": "😌", "social-18": "🎁",
+    "social-19": "🍺", "social-20": "🤝", "social-21": "🗣️", "social-22": "💬", "social-23": "🎁", "social-24": "🕊️",
+    "social-25": "🧭", "social-26": "🗺️", "social-27": "🪑", "social-28": "🌾", "social-29": "⛰️", "social-30": "🌊",
+    "social-31": "🧭", "social-32": "📏", "social-33": "🏖️", "social-34": "🔍", "social-35": "🛩️", "social-36": "🗺️",
+    // ---- History ----
+    "history-1": "🏡", "history-2": "🗺️", "history-3": "🏞️", "history-4": "💧", "history-5": "🌾", "history-6": "🚗",
+    "history-7": "🛖", "history-8": "🌾", "history-9": "🌱", "history-10": "🏙️", "history-11": "🏗️",
+    "history-12": "👺", "history-13": "🍲", "history-14": "🍜", "history-15": "🎆", "history-16": "🐈", "history-17": "🥬",
+    "history-18": "🥗", "history-19": "🌸", "history-20": "🌾", "history-21": "🛕", "history-22": "🏠", "history-23": "🤝",
+    // ---- English ----
     "english-1": "🚲", "english-2": "🚚", "english-3": "🚆", "english-4": "🚝", "english-5": "🚢", "english-6": "🚁",
     "english-7": "📚", "english-8": "🏪", "english-9": "🛝", "english-10": "🏙️",
     "english-11": "🤡", "english-12": "🤓", "english-13": "🌟", "english-14": "👻",
-    // English — present simple (scene) & question words & reading
     "english-15": "🏖️", "english-16": "🍼", "english-17": "👩‍🏫", "english-18": "🧊", "english-19": "🪥",
     "english-20": "🌅", "english-21": "🎨", "english-22": "🪥", "english-23": "🍳",
-    "english-24": "🎂", "english-27": "✏️", "english-29": "🚶",
+    "english-24": "🎂", "english-25": "🤔", "english-26": "📍", "english-27": "✏️", "english-28": "⏰", "english-29": "🚶", "english-30": "👩‍🏫",
     "english-31": "🥭", "english-32": "🥭", "english-33": "🍦", "english-34": "🍦",
-    // Chinese — pinyin (concrete nouns), vocab nouns, animals, body, sentence
-    "chinese-6": "🐟", "chinese-8": "👀", "chinese-9": "👃",
-    "chinese-12": "👧", "chinese-19": "🏠",
-    "chinese-21": "🐶", "chinese-22": "🐱", "chinese-23": "🐴", "chinese-24": "🐟",
+    // ---- Chinese ----
+    "chinese-1": "🐘", "chinese-2": "📏", "chinese-3": "🐷", "chinese-4": "🦒", "chinese-6": "🐟",
+    "chinese-7": "👧", "chinese-8": "👀", "chinese-9": "👃",
+    "chinese-10": "🙋", "chinese-11": "👩", "chinese-12": "👧", "chinese-13": "🐘", "chinese-14": "🐭", "chinese-15": "🦒",
+    "chinese-18": "➕", "chinese-19": "🏠", "chinese-20": "🚫",
+    "chinese-21": "🐶", "chinese-22": "🐱", "chinese-23": "🐴", "chinese-24": "🐟", "chinese-25": "🐾", "chinese-26": "🐹",
     "chinese-27": "🧑", "chinese-28": "💇", "chinese-29": "👀", "chinese-30": "👃", "chinese-31": "👄",
-    "chinese-36": "🐟",
-    // Science — fish/food (ask group), materials, states
-    "science-5": "🐟", "science-15": "🍊", "science-16": "🥚", "science-17": "🥛",
-    "science-31": "🛞", "science-32": "🥃", "science-33": "📓", "science-38": "💧",
-    "science-41": "🧊", "science-42": "🧊", "science-43": "🍦", "science-44": "💧", "science-45": "🌽", "science-47": "☕",
-    // Social — geography tools
-    "social-25": "🧭", "social-29": "⛰️", "social-30": "🌊", "social-31": "🧭", "social-33": "🏖️", "social-35": "📷",
-    // History — food & festivals
-    "history-12": "👺", "history-13": "🍲", "history-14": "🍜", "history-15": "🎆",
-    "history-16": "🐈", "history-17": "🥬", "history-18": "🥗", "history-21": "🛕", "history-22": "🏠"
+    "chinese-32": "👧", "chinese-33": "🏠", "chinese-34": "💇", "chinese-35": "❤️", "chinese-36": "🐟",
+    "chinese-37": "👧", "chinese-38": "👩", "chinese-39": "🧩", "chinese-40": "🧩"
   };
   Object.keys(POOLS).forEach(function (k) {
     POOLS[k].forEach(function (q) { if (IMG[q.id]) q.img = IMG[q.id]; });
