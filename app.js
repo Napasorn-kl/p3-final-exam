@@ -309,6 +309,47 @@
     POOLS[k].forEach(function (q) { if (IMG[q.id]) q.img = IMG[q.id]; });
   });
 
+  /* ---------- Hand-drawn flat SVG pictures (real illustrations, not emoji) ---------- */
+  var SVGS = {
+    bike: '<svg viewBox="0 0 64 64" fill="none" stroke="#2f3a57" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="15" cy="43" r="11"/><circle cx="49" cy="43" r="11"/><path d="M15 43l13-19h13"/><path d="M28 24l9 19M41 24l8 19M24 24h9"/></svg>',
+    truck: '<svg viewBox="0 0 64 64"><rect x="4" y="22" width="34" height="20" rx="2" fill="#EB5E7C"/><path d="M38 27h11l7 9v6H38z" fill="#f59aae"/><rect x="41" y="30" width="9" height="7" rx="1" fill="#cfeafe"/><circle cx="16" cy="46" r="6.5" fill="#2f3a57"/><circle cx="46" cy="46" r="6.5" fill="#2f3a57"/><circle cx="16" cy="46" r="2.5" fill="#fff"/><circle cx="46" cy="46" r="2.5" fill="#fff"/></svg>',
+    train: '<svg viewBox="0 0 64 64"><rect x="12" y="12" width="40" height="34" rx="7" fill="#4C6EF5"/><rect x="18" y="18" width="28" height="12" rx="3" fill="#cfeafe"/><circle cx="23" cy="37" r="3" fill="#fff"/><circle cx="41" cy="37" r="3" fill="#fff"/><path d="M20 46l-4 6M44 46l4 6" stroke="#2f3a57" stroke-width="3" stroke-linecap="round"/><circle cx="20" cy="55" r="3" fill="#2f3a57"/><circle cx="44" cy="55" r="3" fill="#2f3a57"/></svg>',
+    ship: '<svg viewBox="0 0 64 64"><path d="M9 38h46l-6 14H15z" fill="#EB5E7C"/><rect x="27" y="14" width="4" height="24" fill="#2f3a57"/><path d="M31 16h15l-4 7 4 7H31z" fill="#4C6EF5"/><path d="M6 40q26 8 52 0" stroke="#2D9CDB" stroke-width="3.5" fill="none" stroke-linecap="round"/></svg>',
+    helicopter: '<svg viewBox="0 0 64 64"><rect x="6" y="15" width="44" height="5" rx="2.5" fill="#2f3a57"/><rect x="26" y="19" width="4" height="7" fill="#2f3a57"/><ellipse cx="26" cy="37" rx="18" ry="11" fill="#17B978"/><path d="M43 35h15v6H45z" fill="#17B978"/><rect x="55" y="30" width="4" height="13" rx="2" fill="#2f3a57"/><circle cx="22" cy="37" r="5" fill="#cfeafe"/><path d="M14 48h24M18 48v4M34 48v4" stroke="#2f3a57" stroke-width="3" stroke-linecap="round"/></svg>',
+    dog: '<svg viewBox="0 0 64 64"><ellipse cx="16" cy="20" rx="7" ry="11" fill="#8a5a2b"/><ellipse cx="48" cy="20" rx="7" ry="11" fill="#8a5a2b"/><circle cx="32" cy="35" r="20" fill="#c8925a"/><circle cx="25" cy="32" r="3.2" fill="#2f2a24"/><circle cx="39" cy="32" r="3.2" fill="#2f2a24"/><ellipse cx="32" cy="42" rx="4.5" ry="3.4" fill="#2f2a24"/></svg>',
+    cat: '<svg viewBox="0 0 64 64"><path d="M12 13l11 11H12z" fill="#F2994A"/><path d="M52 13L41 24h11z" fill="#F2994A"/><circle cx="32" cy="35" r="20" fill="#f6b26b"/><path d="M25 31v5M39 31v5" stroke="#2f2a24" stroke-width="3" stroke-linecap="round"/><path d="M29 41h6l-3 3z" fill="#2f2a24"/><path d="M11 38h11M11 42h11M42 38h11M42 42h11" stroke="#2f2a24" stroke-width="2" stroke-linecap="round"/></svg>',
+    fish: '<svg viewBox="0 0 64 64"><path d="M43 32l17-11v22z" fill="#2b8fd0"/><ellipse cx="27" cy="32" rx="22" ry="13" fill="#4aa8e0"/><circle cx="16" cy="28" r="3" fill="#fff"/><circle cx="15.5" cy="28" r="1.4" fill="#123"/><path d="M31 25q4 7 0 14" stroke="#2b8fd0" stroke-width="2.5" fill="none"/></svg>',
+    eye: '<svg viewBox="0 0 64 64"><path d="M6 32q26-22 52 0-26 22-52 0z" fill="#fff" stroke="#2f3a57" stroke-width="3"/><circle cx="32" cy="32" r="9" fill="#6b4a2b"/><circle cx="32" cy="32" r="4" fill="#1a1a1a"/><circle cx="29" cy="29" r="1.6" fill="#fff"/></svg>',
+    nose: '<svg viewBox="0 0 64 64" fill="none" stroke="#2f3a57" stroke-width="3.4" stroke-linecap="round"><path d="M32 14v22q0 9-8 11"/><path d="M24 40q8 5 16 0"/></svg>',
+    mouth: '<svg viewBox="0 0 64 64"><path d="M10 26q22 18 44 0-6 18-22 18T10 26z" fill="#EB5E7C" stroke="#2f3a57" stroke-width="2.5"/><path d="M15 29q17 8 34 0" fill="none" stroke="#fff" stroke-width="3"/></svg>',
+    egg: '<svg viewBox="0 0 64 64"><path d="M32 8c-12 0-20 18-20 30a20 20 0 0040 0C52 26 44 8 32 8z" fill="#fff" stroke="#2f3a57" stroke-width="2.5"/><circle cx="32" cy="40" r="9" fill="#FFC53D"/></svg>',
+    orange: '<svg viewBox="0 0 64 64"><circle cx="32" cy="35" r="21" fill="#F2994A"/><circle cx="24" cy="27" r="5" fill="#f6b26b"/><path d="M30 14q4-4 9 0" stroke="#17B978" stroke-width="4" fill="none" stroke-linecap="round"/></svg>',
+    milk: '<svg viewBox="0 0 64 64"><path d="M22 12h20l3 8-2 30a3 3 0 01-3 3H24a3 3 0 01-3-3l-2-30z" fill="#eef4ff" stroke="#2f3a57" stroke-width="2.5"/><path d="M20 30h24l-1.5 20h-21z" fill="#fff"/></svg>',
+    icecube: '<svg viewBox="0 0 64 64"><rect x="16" y="16" width="32" height="32" rx="7" fill="#bfe6ff" stroke="#2f3a57" stroke-width="2.5"/><path d="M22 22l7 7M40 24l-9 11" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>',
+    corn: '<svg viewBox="0 0 64 64"><path d="M32 9c9 0 13 13 13 25s-6 21-13 21-13-9-13-21S23 9 32 9z" fill="#FFC53D" stroke="#2f3a57" stroke-width="2.5"/><path d="M32 13v40M25 20v30M39 20v30" stroke="#e0a400" stroke-width="2"/><path d="M18 22q9-2 9 8M46 22q-9-2-9 8" fill="#17B978"/></svg>',
+    glass: '<svg viewBox="0 0 64 64"><path d="M21 12h22l-3 40a3 3 0 01-3 3H27a3 3 0 01-3-3z" fill="#dbeeff" stroke="#2f3a57" stroke-width="2.5"/><path d="M28 18l-1 30" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>',
+    book: '<svg viewBox="0 0 64 64"><path d="M32 15c-6-4-16-4-21-2v37c5-2 15-2 21 2z" fill="#4C6EF5"/><path d="M32 15c6-4 16-4 21-2v37c-5-2-15-2-21 2z" fill="#7a93ff"/><path d="M32 15v37" stroke="#2f3a57" stroke-width="2.5"/></svg>',
+    tire: '<svg viewBox="0 0 64 64"><circle cx="32" cy="34" r="22" fill="#2f3a57"/><circle cx="32" cy="34" r="10" fill="#b9c2d6"/><circle cx="32" cy="34" r="4" fill="#2f3a57"/></svg>',
+    medal: '<svg viewBox="0 0 64 64"><path d="M23 8l8 20M41 8l-8 20" stroke="#4C6EF5" stroke-width="4" stroke-linecap="round"/><circle cx="32" cy="41" r="15" fill="#FFC53D" stroke="#e0a400" stroke-width="2.5"/><path d="M32 33l2.2 4.5 5 .5-3.7 3.4 1 5-4.5-2.5-4.5 2.5 1-5-3.7-3.4 5-.5z" fill="#fff"/></svg>',
+    tree: '<svg viewBox="0 0 64 64"><rect x="29" y="36" width="6" height="18" rx="1" fill="#8a5a2b"/><circle cx="32" cy="25" r="15" fill="#17B978"/><circle cx="22" cy="30" r="9" fill="#3ccf8e"/><circle cx="42" cy="30" r="9" fill="#3ccf8e"/></svg>',
+    water: '<svg viewBox="0 0 64 64"><path d="M32 8C22 24 18 32 18 40a14 14 0 0028 0c0-8-4-16-14-32z" fill="#2D9CDB"/><path d="M26 41a6 8 0 002 8" stroke="#bfe6ff" stroke-width="3" fill="none" stroke-linecap="round"/></svg>',
+    compass: '<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="22" fill="#eef2fb" stroke="#2f3a57" stroke-width="3"/><path d="M32 16l6 16-6 16-6-16z" fill="#EB5E7C"/><path d="M32 16l-6 16 6 16" fill="#cfd6e6"/><circle cx="32" cy="32" r="3" fill="#2f3a57"/></svg>',
+    ruler: '<svg viewBox="0 0 64 64"><rect x="8" y="26" width="48" height="14" rx="2" fill="#FFC53D" stroke="#2f3a57" stroke-width="2.5"/><path d="M16 26v6M24 26v8M32 26v6M40 26v8M48 26v6" stroke="#2f3a57" stroke-width="2"/></svg>'
+  };
+  var SVGMAP = {
+    "english-1": "bike", "english-2": "truck", "english-3": "train", "english-4": "train", "english-5": "ship", "english-6": "helicopter",
+    "chinese-6": "fish", "chinese-8": "eye", "chinese-9": "nose", "chinese-21": "dog", "chinese-22": "cat", "chinese-24": "fish",
+    "chinese-29": "eye", "chinese-30": "nose", "chinese-31": "mouth", "chinese-36": "fish",
+    "science-5": "fish", "science-6": "fish", "science-7": "water", "science-8": "water", "science-11": "tree",
+    "science-15": "orange", "science-16": "egg", "science-17": "milk", "science-31": "tire", "science-32": "glass",
+    "science-33": "book", "science-38": "water", "science-41": "icecube", "science-42": "icecube", "science-44": "water",
+    "science-45": "corn", "science-48": "medal",
+    "social-25": "compass", "social-31": "compass", "social-32": "ruler"
+  };
+  Object.keys(POOLS).forEach(function (k) {
+    POOLS[k].forEach(function (q) { if (SVGMAP[q.id] && SVGS[SVGMAP[q.id]]) q.img = SVGS[SVGMAP[q.id]]; });
+  });
+
   /* ---------- Pre-exam review (ทบทวนก่อนสอบ) ---------- */
   var REVIEW = {
     science: [
