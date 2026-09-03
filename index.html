@@ -326,6 +326,10 @@ body{font-size:18px}
 .q-explain{background:var(--bg);border-radius:14px;padding:13px 16px;font-size:16.5px;font-weight:500;line-height:1.55;margin-top:12px}
 .hint{flex:1;text-align:center;color:var(--muted);font-weight:700;font-family:"Baloo Thai 2","Sarabun",sans-serif;font-size:17px}
 .nav-sp{flex:1}
+
+/* imgq */
+.q-illus{font-size:56px;line-height:1;margin:0 auto 12px;width:100px;height:100px;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--subject) 13%,transparent);border-radius:26px}
+.ans-illus{font-size:22px}
 </style>
 </head>
 <body>
@@ -596,6 +600,37 @@ body{font-size:18px}
 
   var POOLS = { science: SCIENCE, social: SOCIAL, history: HISTORY, english: ENGLISH, chinese: CHINESE };
 
+  /* ---------- Picture illustrations (emoji) for picture-friendly questions ---------- */
+  var IMG = {
+    // English — vehicles & places
+    "english-1": "🚲", "english-2": "🚚", "english-3": "🚆", "english-4": "🚝", "english-5": "🚢", "english-6": "🚁",
+    "english-7": "📚", "english-8": "🏪", "english-9": "🛝", "english-10": "🏙️",
+    "english-11": "🤡", "english-12": "🤓", "english-13": "🌟", "english-14": "👻",
+    // English — present simple (scene) & question words & reading
+    "english-15": "🏖️", "english-16": "🍼", "english-17": "👩‍🏫", "english-18": "🧊", "english-19": "🪥",
+    "english-20": "🌅", "english-21": "🎨", "english-22": "🪥", "english-23": "🍳",
+    "english-24": "🎂", "english-27": "✏️", "english-29": "🚶",
+    "english-31": "🥭", "english-32": "🥭", "english-33": "🍦", "english-34": "🍦",
+    // Chinese — pinyin (concrete nouns), vocab nouns, animals, body, sentence
+    "chinese-6": "🐟", "chinese-8": "👀", "chinese-9": "👃",
+    "chinese-12": "👧", "chinese-19": "🏠",
+    "chinese-21": "🐶", "chinese-22": "🐱", "chinese-23": "🐴", "chinese-24": "🐟",
+    "chinese-27": "🧑", "chinese-28": "💇", "chinese-29": "👀", "chinese-30": "👃", "chinese-31": "👄",
+    "chinese-36": "🐟",
+    // Science — fish/food (ask group), materials, states
+    "science-5": "🐟", "science-15": "🍊", "science-16": "🥚", "science-17": "🥛",
+    "science-31": "🛞", "science-32": "🥃", "science-33": "📓", "science-38": "💧",
+    "science-41": "🧊", "science-42": "🧊", "science-43": "🍦", "science-44": "💧", "science-45": "🌽", "science-47": "☕",
+    // Social — geography tools
+    "social-25": "🧭", "social-29": "⛰️", "social-30": "🌊", "social-31": "🧭", "social-33": "🏖️", "social-35": "📷",
+    // History — food & festivals
+    "history-12": "👺", "history-13": "🍲", "history-14": "🍜", "history-15": "🎆",
+    "history-16": "🐈", "history-17": "🥬", "history-18": "🥗", "history-21": "🛕", "history-22": "🏠"
+  };
+  Object.keys(POOLS).forEach(function (k) {
+    POOLS[k].forEach(function (q) { if (IMG[q.id]) q.img = IMG[q.id]; });
+  });
+
   /* ---------- Pre-exam review (ทบทวนก่อนสอบ) ---------- */
   var REVIEW = {
     science: [
@@ -709,7 +744,7 @@ body{font-size:18px}
       }
       return {
         ref: q, id: q.id, topic: q.topic, difficulty: q.difficulty, type: q.type,
-        question: q.question, explanation: q.explanation,
+        question: q.question, explanation: q.explanation, image: q.img,
         choices: display.choices, correct: display.correct
       };
     });
@@ -1000,6 +1035,7 @@ body{font-size:18px}
       "</div>" +
       '<div class="q-card">' +
         '<div class="q-tags"><span class="q-topic">' + esc(SUBJECTS[key].topics[item.topic] || item.topic) + '</span><span class="q-diff" title="' + dm.label + '">' + dm.stars + "</span></div>" +
+        (item.image ? '<div class="q-illus">' + item.image + "</div>" : "") +
         '<div class="q-text">' + esc(item.question) + "</div>" +
         '<div class="choices">' + choices + "</div>" +
         feedback +
@@ -1060,7 +1096,7 @@ body{font-size:18px}
         '<div class="ans-card ' + (correct ? "ok" : "no") + '">' +
           '<div class="ans-head"><span class="ans-no">ข้อ ' + (i + 1) + "</span>" +
             '<span class="ans-badge">' + (correct ? "✅ ถูกต้อง" : "🔎 ลองทบทวน") + "</span></div>" +
-          '<div class="ans-q">' + esc(item.question) + "</div>" +
+          '<div class="ans-q">' + (item.image ? '<span class="ans-illus">' + item.image + "</span> " : "") + esc(item.question) + "</div>" +
           '<div class="ans-line correct"><b>✅ คำตอบที่ถูก:</b> ' + esc(item.choices[item.correct]) + "</div>" +
           (correct ? "" : '<div class="ans-line yours"><b>📝 หนูตอบ:</b> ' + yourAns + "</div>") +
           '<div class="ans-explain">💡 ' + esc(item.explanation) + "</div>" +
@@ -1120,9 +1156,9 @@ body{font-size:18px}
     // rebuild fresh display (re-shuffle choices) from the original refs
     state.exam = shuffle(wrong).map(function (item) {
       var q = item.ref;
-      if (q.type === "tf") return { ref: q, id: q.id, topic: q.topic, difficulty: q.difficulty, type: q.type, question: q.question, explanation: q.explanation, choices: q.choices.slice(), correct: q.answer };
+      if (q.type === "tf") return { ref: q, id: q.id, topic: q.topic, difficulty: q.difficulty, type: q.type, image: q.img, question: q.question, explanation: q.explanation, choices: q.choices.slice(), correct: q.answer };
       var order = shuffle(q.choices.map(function (_, i) { return i; }));
-      return { ref: q, id: q.id, topic: q.topic, difficulty: q.difficulty, type: q.type, question: q.question, explanation: q.explanation, choices: order.map(function (i) { return q.choices[i]; }), correct: order.indexOf(q.answer) };
+      return { ref: q, id: q.id, topic: q.topic, difficulty: q.difficulty, type: q.type, image: q.img, question: q.question, explanation: q.explanation, choices: order.map(function (i) { return q.choices[i]; }), correct: order.indexOf(q.answer) };
     });
     state.answers = state.exam.map(function () { return null; });
     state.index = 0;
