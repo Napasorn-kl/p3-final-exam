@@ -350,6 +350,17 @@
     POOLS[k].forEach(function (q) { if (SVGMAP[q.id] && SVGS[SVGMAP[q.id]]) q.img = SVGS[SVGMAP[q.id]]; });
   });
 
+  /* ---------- Thai reading (คำอ่านไทย) for Chinese words — helps young kids pronounce ---------- */
+  var QREAD = {
+    "chinese-10": "หว่อ", "chinese-11": "ทา", "chinese-12": "เจี่ย-เจีย", "chinese-13": "ต้า", "chinese-14": "เสี่ยว",
+    "chinese-15": "เกา", "chinese-16": "โซ่ว", "chinese-17": "เหิ่น", "chinese-18": "เหอ",
+    "chinese-21": "โก่ว", "chinese-22": "เมา", "chinese-23": "หม่า", "chinese-24": "อวี๋", "chinese-25": "ต้ง-อู้", "chinese-26": "ฉ่ง-อู้",
+    "chinese-27": "โถว", "chinese-28": "โถว-ฟา", "chinese-29": "เหยี่ยน-จิง", "chinese-30": "ปี๋-จึ", "chinese-31": "จุ่ย-ปา",
+    "chinese-37": "หว่อ โหย่ว อี๋ เก้อ เจี่ย-เจีย", "chinese-38": "ทา ปู้ พั่ง ปู้ โซ่ว",
+    "chinese-39": "พั่ง", "chinese-40": "ทา"
+  };
+  POOLS.chinese.forEach(function (q) { if (QREAD[q.id]) q.read = QREAD[q.id]; });
+
   /* ---------- Pre-exam review (ทบทวนก่อนสอบ) ---------- */
   var REVIEW = {
     science: [
@@ -384,13 +395,13 @@
       { icon: "🧠", label: "Question Words", text: "Who ใคร · What อะไร · When เมื่อไร · Where ที่ไหน · Why ทำไม · How อย่างไร · Whose ของใคร" }
     ],
     chinese: [
-      { icon: "⭐", label: "คำที่ต้องจำ", text: "我 ฉัน · 她 เขา(ผู้หญิง) · 姐姐 พี่สาว · 家 บ้าน · 和 และ · 不 ไม่ · 有 มี · 很 มาก" },
-      { icon: "🧠", label: "คำตรงข้าม", text: "大 ใหญ่ ↔ 小 เล็ก · 胖 อ้วน ↔ 瘦 ผอม · 高 สูง · 长 ยาว" },
-      { icon: "🐶", label: "สัตว์", text: "狗 หมา · 猫 แมว · 马 ม้า · 鱼 ปลา · 动物 สัตว์ · 宠物 สัตว์เลี้ยง" },
-      { icon: "👀", label: "ร่างกาย", text: "头 หัว · 头发 ผม · 眼睛 ตา · 鼻子 จมูก · 嘴巴 ปาก" },
-      { icon: "💡", label: "เคล็ดลับพินอิน", text: "วรรณยุกต์สำคัญมาก! 大 dà · 高 gāo · 鱼 yú · 很 hěn · 胖 pàng · 长 cháng" },
-      { icon: "⚠️", label: "ลักษณนาม", text: "นับปลาใช้ 条 → 我养了五条鱼 = ฉันเลี้ยงปลา 5 ตัว" },
-      { icon: "🧠", label: "ประโยคน่ารู้", text: "我很喜欢动物。= ฉันชอบสัตว์มาก · 她不胖不瘦。= เขาไม่อ้วนไม่ผอม" }
+      { icon: "⭐", label: "คำที่ต้องจำ (มีคำอ่าน)", text: "我 (หว่อ) ฉัน · 她 (ทา) เขาผู้หญิง · 姐姐 (เจี่ยเจีย) พี่สาว · 家 (เจีย) บ้าน · 和 (เหอ) และ · 不 (ปู้) ไม่ · 有 (โหย่ว) มี · 很 (เหิ่น) มาก" },
+      { icon: "🧠", label: "คำตรงข้าม", text: "大 (ต้า) ใหญ่ ↔ 小 (เสี่ยว) เล็ก · 胖 (พั่ง) อ้วน ↔ 瘦 (โซ่ว) ผอม · 高 (เกา) สูง · 长 (ฉาง) ยาว" },
+      { icon: "🐶", label: "สัตว์", text: "狗 (โก่ว) หมา · 猫 (เมา) แมว · 马 (หม่า) ม้า · 鱼 (อวี๋) ปลา · 动物 (ต้งอู้) สัตว์ · 宠物 (ฉ่งอู้) สัตว์เลี้ยง" },
+      { icon: "👀", label: "ร่างกาย", text: "头 (โถว) หัว · 头发 (โถวฟา) ผม · 眼睛 (เหยี่ยนจิง) ตา · 鼻子 (ปี๋จึ) จมูก · 嘴巴 (จุ่ยปา) ปาก" },
+      { icon: "💡", label: "อ่านง่าย ๆ", text: "ลองอ่านตามคำอ่านไทยในวงเล็บได้เลย! เช่น 你好 (หนีห่าว) = สวัสดี · 谢谢 (เซี่ยเซีย) = ขอบคุณ" },
+      { icon: "⚠️", label: "ลักษณนาม", text: "นับปลาใช้ 条 (เถียว) → 我养了五条鱼 = ฉันเลี้ยงปลา 5 ตัว" },
+      { icon: "🧠", label: "ประโยคน่ารู้", text: "我很喜欢动物。(หว่อ เหิ่น สี่ฮวาน ต้งอู้) = ฉันชอบสัตว์มาก" }
     ]
   };
 
@@ -463,7 +474,7 @@
       }
       return {
         ref: q, id: q.id, topic: q.topic, difficulty: q.difficulty, type: q.type,
-        question: q.question, explanation: q.explanation, image: q.img,
+        question: q.question, explanation: q.explanation, image: q.img, read: q.read,
         choices: display.choices, correct: display.correct
       };
     });
@@ -756,6 +767,7 @@
         '<div class="q-tags"><span class="q-topic">' + esc(SUBJECTS[key].topics[item.topic] || item.topic) + '</span><span class="q-diff" title="' + dm.label + '">' + dm.stars + "</span></div>" +
         (item.image ? '<div class="q-illus">' + item.image + "</div>" : "") +
         '<div class="q-text">' + esc(item.question) + "</div>" +
+        (item.read ? '<div class="q-read">🔊 อ่านว่า <b>' + esc(item.read) + "</b></div>" : "") +
         '<div class="choices">' + choices + "</div>" +
         feedback +
       "</div>" +
@@ -816,6 +828,7 @@
           '<div class="ans-head"><span class="ans-no">ข้อ ' + (i + 1) + "</span>" +
             '<span class="ans-badge">' + (correct ? "✅ ถูกต้อง" : "🔎 ลองทบทวน") + "</span></div>" +
           '<div class="ans-q">' + (item.image ? '<span class="ans-illus">' + item.image + "</span> " : "") + esc(item.question) + "</div>" +
+          (item.read ? '<div class="ans-read">🔊 อ่านว่า <b>' + esc(item.read) + "</b></div>" : "") +
           '<div class="ans-line correct"><b>✅ คำตอบที่ถูก:</b> ' + esc(item.choices[item.correct]) + "</div>" +
           (correct ? "" : '<div class="ans-line yours"><b>📝 หนูตอบ:</b> ' + yourAns + "</div>") +
           '<div class="ans-explain">💡 ' + esc(item.explanation) + "</div>" +
@@ -875,9 +888,9 @@
     // rebuild fresh display (re-shuffle choices) from the original refs
     state.exam = shuffle(wrong).map(function (item) {
       var q = item.ref;
-      if (q.type === "tf") return { ref: q, id: q.id, topic: q.topic, difficulty: q.difficulty, type: q.type, image: q.img, question: q.question, explanation: q.explanation, choices: q.choices.slice(), correct: q.answer };
+      if (q.type === "tf") return { ref: q, id: q.id, topic: q.topic, difficulty: q.difficulty, type: q.type, image: q.img, question: q.question, explanation: q.explanation, read: q.read, choices: q.choices.slice(), correct: q.answer };
       var order = shuffle(q.choices.map(function (_, i) { return i; }));
-      return { ref: q, id: q.id, topic: q.topic, difficulty: q.difficulty, type: q.type, image: q.img, question: q.question, explanation: q.explanation, choices: order.map(function (i) { return q.choices[i]; }), correct: order.indexOf(q.answer) };
+      return { ref: q, id: q.id, topic: q.topic, difficulty: q.difficulty, type: q.type, image: q.img, question: q.question, explanation: q.explanation, read: q.read, choices: order.map(function (i) { return q.choices[i]; }), correct: order.indexOf(q.answer) };
     });
     state.answers = state.exam.map(function () { return null; });
     state.index = 0;
